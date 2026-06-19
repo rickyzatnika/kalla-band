@@ -15,25 +15,25 @@ const members = [
   {
     name: "Ashid",
     role: "Drummer",
-    image: "/images/1 ASHID drum.png",
+    image: "/images/ashid.jpeg",
     bio: "Drummer yang menghadirkan permainan drum yang dinamis dan penuh rasa.",
   },
   {
     name: "Dedi",
     role: "Bassis",
-    image: "/images/1 DEDI Bass.png",
+    image: "/images/dedi.jpeg",
     bio: "Memberikan fondasi yang hangat melalui bassline yang memperkuat emosi dan kedalaman setiap lagu.",
   },
   {
     name: "Ageu",
     role: "Gitaris",
-    image: "/images/1 AGEU gitar.png",
+    image: "/images/ageu.jpeg",
     bio: "Memberikan warna khas melalui permainan gitar yang atmosferik, melodis, dan emosional.",
   },
   {
     name: "Biden",
     role: "Lead Guitar",
-    image: "/images/biden-pose.png",
+    image: "/images/biden.jpeg",
     bio: "Memberikan sentuhan melodi, hook, dan warna emosional melalui permainan lead guitar yang khas.",
   },
 ];

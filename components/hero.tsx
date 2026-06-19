@@ -24,16 +24,19 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden">
-      <div ref={ref} className="absolute inset-0 transition-transform duration-1000 ease-out">
+      <div
+        ref={ref}
+        className="absolute inset-0 transition-transform duration-1000 ease-out"
+      >
         <Image
-          src="/images/KALLA_Band.jpg"
+          src="/images/hero.jpeg"
           alt="KALLA Band"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#090909] via-[#090909]/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-[#090909]/20" />
+        <div className="absolute inset-0 bg-linear-to-r from-[#090909] via-[#090909]/60 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-[#090909] via-transparent to-[#090909]/20" />
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6">
@@ -62,7 +65,8 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             className="mt-6 max-w-lg text-lg leading-relaxed text-[#A1A1AA]"
           >
-            Band emotional alternative pop asal Bandung. Musik tentang kehilangan, cinta diam-diam, kerinduan, dan proses menerima hidup.
+            Band emotional alternative pop asal Bandung. Musik tentang
+            kehilangan, cinta diam-diam, kerinduan, dan proses menerima hidup.
           </motion.p>
 
           <motion.div
