@@ -1,11 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const galleryItems = [
   { id: 1, image: "/gallery-1.png", title: "Penampilan Live", category: "Konser" },
@@ -20,10 +25,42 @@ const categories = ["Semua", "Konser", "Studio", "Acara"];
 export default function Gallery() {
   const [selected, setSelected] = useState<string | null>(null);
   const [activeCat, setActiveCat] = useState("Semua");
+  const headerRef = useRef<HTMLDivElement>(null);
+  const filterRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   const filtered = activeCat === "Semua"
     ? galleryItems
     : galleryItems.filter((item) => item.category === activeCat);
+
+  useGSAP(() => {
+    gsap.fromTo(
+      headerRef.current,
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
+    );
+
+    const filterEls = filterRef.current ? Array.from(filterRef.current.children) : [];
+    gsap.fromTo(
+      filterEls,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: "power2.out" }
+    );
+
+    ScrollTrigger.create({
+      trigger: gridRef.current,
+      start: "top 80%",
+      onEnter: () => {
+        const els = gridRef.current ? Array.from(gridRef.current.children) : [];
+        gsap.fromTo(
+          els,
+          { y: 60, opacity: 0, scale: 0.95 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" }
+        );
+      },
+      once: true,
+    });
+  });
 
   return (
     <>
@@ -31,25 +68,16 @@ export default function Gallery() {
       <main className="min-h-screen bg-[#090909] pt-20">
         <section className="px-6 py-32">
           <div className="mx-auto max-w-6xl">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
+            <div ref={headerRef}>
               <p className="text-xs font-medium tracking-[0.3em] text-[#C08457] uppercase">
                 Visual
               </p>
               <h1 className="mt-4 font-serif text-6xl font-bold tracking-wide sm:text-7xl">
                 Galeri
               </h1>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="mt-12 flex flex-wrap gap-3"
-            >
+            <div ref={filterRef} className="mt-12 flex flex-wrap gap-3">
               {categories.map((cat) => (
                 <button
                   key={cat}
@@ -63,19 +91,12 @@ export default function Gallery() {
                   {cat}
                 </button>
               ))}
-            </motion.div>
+            </div>
 
-            <motion.div
-              layout
-              className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-            >
-              {filtered.map((item, i) => (
-                <motion.div
+            <div ref={gridRef} className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {filtered.map((item) => (
+                <div
                   key={item.id}
-                  layout
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08, duration: 0.6, ease: "easeOut" }}
                   className="group relative aspect-[4/5] cursor-pointer overflow-hidden rounded-3xl bg-[#111111]"
                   onClick={() => setSelected(item.image)}
                 >
@@ -90,9 +111,9 @@ export default function Gallery() {
                     <p className="font-serif text-lg font-bold">{item.title}</p>
                     <p className="mt-1 text-xs text-[#C08457]">{item.category}</p>
                   </div>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </section>
 

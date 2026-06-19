@@ -1,8 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Link from "next/link";
+import { useRef } from "react";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TransitionLink } from "@/components/transition-link";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const events = [
   {
@@ -22,14 +27,51 @@ const events = [
 ];
 
 export function UpcomingEvents() {
+  const section = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section.current,
+          start: "top 70%",
+          end: "top 30%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      tl.fromTo(
+        headerRef.current,
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+      ).fromTo(
+        cardsRef.current ? Array.from(cardsRef.current.children) : [],
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: "power2.out",
+        },
+        "-=0.4",
+      );
+    });
+  });
+
   return (
-    <section className="border-t border-[rgba(255,255,255,0.06)] px-6 py-32">
+    <section
+      ref={section}
+      className="border-t border-[rgba(255,255,255,0.06)] px-6 py-32"
+    >
       <div className="mx-auto max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        <div
+          ref={headerRef}
           className="mb-16 flex items-end justify-between"
         >
           <div>
@@ -40,22 +82,18 @@ export function UpcomingEvents() {
               Agenda Mendatang
             </h2>
           </div>
-          <Link
+          <TransitionLink
             href="/events"
             className="hidden items-center gap-2 text-sm text-[#A1A1AA] transition-colors hover:text-white md:flex"
           >
             Semua Agenda <ArrowRight className="h-4 w-4" />
-          </Link>
-        </motion.div>
+          </TransitionLink>
+        </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {events.map((event, i) => (
-            <motion.div
+        <div ref={cardsRef} className="grid gap-6 md:grid-cols-2">
+          {events.map((event) => (
+            <div
               key={event.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.15, duration: 0.8, ease: "easeOut" }}
               className="group rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8 transition-all duration-500 hover:border-[#C08457]/30 hover:bg-[#181818]"
             >
               <div className="mb-1 inline-block rounded-full border border-[rgba(255,255,255,0.08)] px-4 py-1.5 text-xs font-medium text-[#C08457]">
@@ -74,24 +112,18 @@ export function UpcomingEvents() {
                   {event.venue}, {event.location}
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="mt-8 flex justify-center md:hidden"
-        >
-          <Link
+        <div ref={ctaRef} className="mt-8 flex justify-center md:hidden">
+          <TransitionLink
             href="/events"
             className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.15)] px-8 py-3 text-sm font-medium text-white transition-all duration-300 hover:border-white/30"
           >
             Semua Agenda <ArrowRight className="h-4 w-4" />
-          </Link>
-        </motion.div>
+          </TransitionLink>
+        </div>
       </div>
     </section>
   );

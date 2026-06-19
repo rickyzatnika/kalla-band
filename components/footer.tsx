@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { Mail, ExternalLink, Music2 } from "lucide-react";
+import { TransitionLink } from "@/components/transition-link";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -39,12 +39,12 @@ export function Footer() {
                 { label: "Kontak", href: "/contact" },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link
+                  <TransitionLink
                     href={link.href}
                     className="text-sm text-[#A1A1AA] transition-colors duration-300 hover:text-white"
                   >
                     {link.label}
-                  </Link>
+                  </TransitionLink>
                 </li>
               ))}
             </ul>

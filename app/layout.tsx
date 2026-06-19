@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { Geist } from "next/font/google";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import "./globals.css";
 
 const cinzel = localFont({
@@ -17,11 +17,6 @@ const cinzel = localFont({
     },
   ],
   variable: "--font-cinzel",
-});
-
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist",
 });
 
 export const metadata: Metadata = {
@@ -53,10 +48,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className="dark">
-      <body
-        className={`${cinzel.variable} ${geist.variable} font-sans antialiased`}
-      >
-        {children}
+      <body className={`${cinzel.variable}  antialiased`}>
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

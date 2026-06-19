@@ -1,115 +1,212 @@
 "use client";
 
-import Link from "next/link";
-import { useState, useEffect, useCallback } from "react";
-import { Menu, X } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
+import { TransitionLink } from "@/components/transition-link";
 
 const links = [
-  { href: "/", label: "Beranda" },
-  { href: "/about", label: "Tentang" },
-  { href: "/music", label: "Musik" },
-  { href: "/events", label: "Agenda" },
-  { href: "/gallery", label: "Galeri" },
-  { href: "/press", label: "Press Kit" },
-  { href: "/booking", label: "Booking" },
-  { href: "/contact", label: "Kontak" },
+  { href: "/", label: "Beranda", num: "1" },
+  { href: "/about", label: "Tentang", num: "2" },
+  { href: "/music", label: "Musik", num: "3" },
+  { href: "/events", label: "Agenda", num: "4" },
+  { href: "/gallery", label: "Galeri", num: "5" },
+  { href: "/press", label: "Press Kit", num: "6" },
+  { href: "/booking", label: "Booking", num: "7" },
+  { href: "/contact", label: "Kontak", num: "8" },
 ];
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const leftPanel = useRef<HTMLDivElement>(null);
+  const rightPanel = useRef<HTMLDivElement>(null);
+  const leftItems = useRef<HTMLDivElement>(null);
+  const rightItems = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    if (!isOpen) return;
+    const lenis = (window as any).__lenis;
+    lenis?.stop();
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    const tl = gsap.timeline({ delay: 0 });
+
+    tl.set(leftItems.current!.children, { y: 30, opacity: 0 })
+      .set(rightItems.current!.children, { y: 20, opacity: 0 })
+      .to(leftPanel.current, { x: "0%", duration: 1, ease: "power4.out" }, 0)
+      .to(rightPanel.current, { x: "0%", duration: 1, ease: "power4.out" }, 0)
+      .fromTo(
+        leftItems.current!.children,
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "power3.out",
+        },
+      )
+      .fromTo(
+        rightItems.current!.children,
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+          stagger: 0.05,
+          ease: "power3.out",
+        },
+        "<",
+      );
   }, [isOpen]);
 
-  const close = useCallback(() => setIsOpen(false), []);
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      const lenis = (window as any).__lenis;
+      lenis?.start();
+    };
+  }, []);
+
+  const close = () => {
+    gsap.to(leftPanel.current, {
+      x: "-100%",
+      duration: 0.8,
+      ease: "power4.in",
+    });
+    gsap.to(rightPanel.current, {
+      x: "100%",
+      duration: 0.8,
+      ease: "power4.in",
+      onComplete: () => {
+        setIsOpen(false);
+        const lenis = (window as any).__lenis;
+        lenis?.start();
+        document.body.style.overflow = "";
+        document.documentElement.style.overflow = "";
+      },
+    });
+  };
 
   return (
-    <header
-      className={`fixed top-0 z-50 w-full transition-all duration-700 ${
-        scrolled
-          ? "bg-[#090909]/80 backdrop-blur-xl border-b border-[rgba(255,255,255,0.06)]"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-        <Link href="/" className="relative z-10">
+    <>
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5">
+        <TransitionLink href="/">
           <Image
             src="/images/LOGO.png"
             alt="KALLA"
-            width={48}
-            height={48}
-            className="h-10 w-auto"
-            loading="eager"
+            width={40}
+            height={40}
+            className="h-9 w-auto"
+            priority
           />
-        </Link>
-
-        <nav className="hidden items-center gap-8 md:flex">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm text-[#A1A1AA] transition-colors duration-300 hover:text-white"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
+        </TransitionLink>
         <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="relative z-10 text-white md:hidden"
-          aria-label="Toggle menu"
+          onClick={() => (isOpen ? close() : setIsOpen(true))}
+          className="relative z-50 flex flex-col items-end gap-1.5"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
         >
-          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          <span
+            className={`block h-px bg-white transition-all duration-300 ${
+              isOpen ? "w-5 rotate-45 translate-y-[3.5px]" : "w-6"
+            }`}
+          />
+          <span
+            className={`block h-px bg-white transition-all duration-300 ${
+              isOpen ? "w-5 -rotate-45 -translate-y-[3.5px]" : "w-4"
+            }`}
+          />
         </button>
-      </div>
+      </header>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 bg-[#090909]"
-            onClick={close}
+      {isOpen && (
+        <div className="fixed inset-0 z-40 flex w-screen h-screen">
+          <div
+            ref={leftPanel}
+            className="flex h-full w-1/2 max-sm:w-full items-start bg-[#131313]"
+            style={{ transform: "translateX(-100%)" }}
           >
-            {links.map((link, i) => (
-              <motion.div
-                key={link.href}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.06, duration: 0.3 }}
-              >
-                <Link
-                  href={link.href}
-                  onClick={close}
-                  className="block font-serif text-xl tracking-wide text-white transition-colors hover:text-[#C08457] sm:text-2xl"
-                >
-                  {link.label}
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+            <div className="w-full px-[12%] max-sm:px-[6%] max-sm:pt-16">
+              <div ref={leftItems} className="flex flex-col">
+                {links.map((link) => (
+                  <TransitionLink
+                    key={link.href}
+                    href={link.href}
+                    className="group flex items-center gap-4 py-5 max-sm:py-3 border-b border-white/10 transition-transform duration-300 hover:translate-x-2"
+                  >
+                    <span className="font-mono text-xs tracking-wider text-[#C08457]">
+                      ({link.num})
+                    </span>
+                    <span className="text-xl max-sm:text-lg font-serif font-bold tracking-tight text-white transition-all duration-300 sm:text-2xl lg:text-3xl">
+                      {link.label}
+                    </span>
+                  </TransitionLink>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div
+            ref={rightPanel}
+            className="flex h-full w-1/2 max-sm:hidden items-center justify-center bg-[#090909]"
+            style={{ transform: "translateX(100%)" }}
+          >
+            <div
+              ref={rightItems}
+              className="flex flex-col items-center gap-14 max-sm:gap-8 text-center"
+            >
+              <div>
+                <Image
+                  src="/images/LOGO.png"
+                  alt="KALLA"
+                  width={100}
+                  height={100}
+                  className="h-14 w-auto max-sm:h-10"
+                />
+              </div>
+
+              <div className="space-y-5">
+                <div>
+                  <p className="mb-1 text-xs font-mono tracking-[0.15em] text-[#C08457] uppercase">
+                    Email
+                  </p>
+                  <a
+                    href="mailto:hello@kalla.id"
+                    className="text-sm text-[#A1A1AA] transition-colors hover:text-white"
+                  >
+                    hello@kalla.id
+                  </a>
+                </div>
+                <div>
+                  <p className="mb-1 text-xs font-mono tracking-[0.15em] text-[#C08457] uppercase">
+                    Lokasi
+                  </p>
+                  <p className="text-sm text-[#A1A1AA]">Bandung, Indonesia</p>
+                </div>
+              </div>
+
+              <div>
+                <p className="mb-3 text-xs font-mono tracking-[0.15em] text-[#C08457] uppercase">
+                  Social
+                </p>
+                <div className="flex gap-6">
+                  {["Instagram", "YouTube", "Spotify"].map((s) => (
+                    <a
+                      key={s}
+                      href="#"
+                      className="text-sm text-[#A1A1AA] underline underline-offset-4 transition-colors hover:text-white"
+                    >
+                      {s}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
