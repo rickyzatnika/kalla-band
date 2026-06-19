@@ -1,0 +1,104 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { Mail, ExternalLink, Music2 } from "lucide-react";
+
+export function Footer() {
+  const year = new Date().getFullYear();
+
+  return (
+    <footer className="border-t border-[rgba(255,255,255,0.06)] px-6 py-20">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-12 md:grid-cols-4">
+          <div className="md:col-span-2">
+            <Image
+              src="/images/LOGO.png"
+              alt="KALLA"
+              width={56}
+              height={56}
+              loading="eager"
+              className="h-12 w-auto"
+            />
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-[#A1A1AA]">
+              Band emotional alternative pop asal Bandung. Musik tentang
+              kehilangan, cinta diam-diam, kerinduan, dan proses menerima hidup.
+            </p>
+          </div>
+
+          <div>
+            <p className="mb-4 text-xs font-medium tracking-[0.2em] text-[#C08457] uppercase">
+              Navigasi
+            </p>
+            <ul className="space-y-3">
+              {[
+                { label: "Tentang", href: "/about" },
+                { label: "Musik", href: "/music" },
+                { label: "Agenda", href: "/events" },
+                { label: "Booking", href: "/booking" },
+                { label: "Kontak", href: "/contact" },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-[#A1A1AA] transition-colors duration-300 hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="mb-4 text-xs font-medium tracking-[0.2em] text-[#C08457] uppercase">
+              Terhubung
+            </p>
+            <ul className="space-y-3">
+              <li>
+                <a
+                  href="mailto:hello@kalla.id"
+                  className="flex items-center gap-2 text-sm text-[#A1A1AA] transition-colors duration-300 hover:text-white"
+                >
+                  <Mail className="h-4 w-4" />
+                  hello@kalla.id
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="flex items-center gap-2 text-sm text-[#A1A1AA] transition-colors duration-300 hover:text-white"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  @kalla.band
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="flex items-center gap-2 text-sm text-[#A1A1AA] transition-colors duration-300 hover:text-white"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  KALLA Official
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="flex items-center gap-2 text-sm text-[#A1A1AA] transition-colors duration-300 hover:text-white"
+                >
+                  <Music2 className="h-4 w-4" />
+                  Spotify
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-16 border-t border-[rgba(255,255,255,0.06)] pt-8 text-center text-sm text-[#A1A1AA]">
+          <p>&copy; {year} KALLA. Hak cipta dilindungi.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
