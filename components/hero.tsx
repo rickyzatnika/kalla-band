@@ -65,8 +65,8 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             className="mt-6 max-w-lg text-lg leading-relaxed text-[#A1A1AA]"
           >
-            Band emotional alternative pop asal Bandung. Musik tentang
-            kehilangan, cinta diam-diam, kerinduan, dan proses menerima hidup.
+            Beberapa rasa mungkin tidak pernah benar-benar hilang. Mereka hanya
+            tinggal di satu kala.
           </motion.p>
 
           <motion.div
