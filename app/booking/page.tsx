@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { useGSAP } from "@gsap/react";
@@ -26,6 +27,8 @@ const bookingSchema = z.object({
 type BookingForm = z.infer<typeof bookingSchema>;
 
 export default function Booking() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
@@ -46,6 +49,25 @@ export default function Booking() {
   };
 
   useGSAP(() => {
+    gsap.fromTo(
+      bgRef.current,
+      { scale: 1.3, filter: "blur(12px)" },
+      { scale: 1, filter: "blur(0px)", duration: 1.8, ease: "power3.out" },
+    );
+
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top top",
+      end: "bottom top",
+      scrub: 1,
+      onUpdate: (self) => {
+        gsap.set(bgRef.current, {
+          y: self.progress * -80,
+          scale: 1 + self.progress * 0.08,
+        });
+      },
+    });
+
     gsap.fromTo(
       headerRef.current,
       { y: 40, opacity: 0 },
@@ -84,10 +106,20 @@ export default function Booking() {
     <>
       <Navigation />
       <main className="min-h-screen bg-[#090909] pt-20">
-        <section className="px-6 py-32">
-          <div className="mx-auto max-w-5xl">
+        <section ref={sectionRef} className="relative overflow-hidden px-6 py-32">
+          <div ref={bgRef} className="absolute inset-0 w-screen left-1/2 -translate-x-1/2">
+            <Image
+              src="/images/cover-album.jpeg"
+              alt=""
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#090909] via-[#090909]/70 to-transparent" />
+          </div>
+          <div className="relative z-10 mx-auto max-w-5xl">
             <div ref={headerRef}>
-              <p className="text-xs font-medium tracking-[0.3em] text-[#C08457] uppercase">
+              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                 Booking
               </p>
               <h1 className="mt-4 font-serif text-6xl font-bold tracking-wide sm:text-7xl">
@@ -112,7 +144,7 @@ export default function Booking() {
                   <label className="mb-2 block text-sm text-[#A1A1AA]">Nama Lengkap *</label>
                   <input
                     {...register("name")}
-                    className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#C08457]"
+                    className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                     placeholder="Nama Anda"
                   />
                   {errors.name && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.name.message}</p>}
@@ -121,7 +153,7 @@ export default function Booking() {
                   <label className="mb-2 block text-sm text-[#A1A1AA]">Email *</label>
                   <input
                     {...register("email")}
-                    className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#C08457]"
+                    className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                     placeholder="email@anda.com"
                   />
                   {errors.email && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.email.message}</p>}
@@ -133,7 +165,7 @@ export default function Booking() {
                   <label className="mb-2 block text-sm text-[#A1A1AA]">Nomor Telepon *</label>
                   <input
                     {...register("phone")}
-                    className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#C08457]"
+                    className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                     placeholder="+62 812 3456 7890"
                   />
                   {errors.phone && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.phone.message}</p>}
@@ -143,7 +175,7 @@ export default function Booking() {
                   <input
                     type="date"
                     {...register("date")}
-                    className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white outline-none transition-all duration-300 focus:border-[#C08457]"
+                    className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white outline-none transition-all duration-300 focus:border-[#DC2626]"
                   />
                   {errors.date && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.date.message}</p>}
                 </div>
@@ -154,7 +186,7 @@ export default function Booking() {
                   <label className="mb-2 block text-sm text-[#A1A1AA]">Nama Acara *</label>
                   <input
                     {...register("event")}
-                    className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#C08457]"
+                    className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                     placeholder="Nama acara"
                   />
                   {errors.event && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.event.message}</p>}
@@ -163,7 +195,7 @@ export default function Booking() {
                   <label className="mb-2 block text-sm text-[#A1A1AA]">Lokasi Acara *</label>
                   <input
                     {...register("location")}
-                    className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#C08457]"
+                    className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                     placeholder="Kota / Venue"
                   />
                   {errors.location && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.location.message}</p>}
@@ -175,7 +207,7 @@ export default function Booking() {
                 <textarea
                   {...register("message")}
                   rows={4}
-                  className="w-full resize-none rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#C08457]"
+                  className="w-full resize-none rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                   placeholder="Ceritakan tentang acara Anda..."
                 />
               </div>
@@ -183,7 +215,7 @@ export default function Booking() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-center gap-2 rounded-full bg-[#C08457] px-8 py-3.5 text-sm font-medium text-white transition-all duration-300 hover:bg-[#D4A373] disabled:opacity-50"
+                className="inline-flex items-center gap-2 rounded-full bg-[#DC2626] px-8 py-3.5 text-sm font-medium text-white transition-all duration-300 hover:bg-[#EF4444] disabled:opacity-50"
               >
                 {isSubmitting ? (
                   "Mengirim..."
@@ -199,25 +231,25 @@ export default function Booking() {
             <div ref={infoRef} className="mt-16 grid gap-6 sm:grid-cols-2">
               <a
                 href="mailto:booking@kalla.id"
-                className="group rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-6 transition-all duration-300 hover:border-[#C08457]/30"
+                className="group rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-6 transition-all duration-300 hover:border-[#DC2626]/30"
               >
-                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#C08457]/10">
-                  <CheckCircle className="h-5 w-5 text-[#C08457]" />
+                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#DC2626]/10">
+                  <CheckCircle className="h-5 w-5 text-[#DC2626]" />
                 </div>
                 <p className="text-sm text-[#A1A1AA]">Kontak Langsung</p>
-                <p className="mt-1 font-medium text-white transition-colors group-hover:text-[#C08457]">
+                <p className="mt-1 font-medium text-white transition-colors group-hover:text-[#DC2626]">
                   booking@kalla.id
                 </p>
               </a>
               <a
                 href="tel:+62812345678"
-                className="group rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-6 transition-all duration-300 hover:border-[#C08457]/30"
+                className="group rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-6 transition-all duration-300 hover:border-[#DC2626]/30"
               >
-                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#C08457]/10">
-                  <CheckCircle className="h-5 w-5 text-[#C08457]" />
+                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#DC2626]/10">
+                  <CheckCircle className="h-5 w-5 text-[#DC2626]" />
                 </div>
                 <p className="text-sm text-[#A1A1AA]">Respon Cepat</p>
-                <p className="mt-1 font-medium text-white transition-colors group-hover:text-[#C08457]">
+                <p className="mt-1 font-medium text-white transition-colors group-hover:text-[#DC2626]">
                   +62 812 345 678
                 </p>
               </a>

@@ -92,7 +92,7 @@ export function Navigation() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-14 py-5">
         <TransitionLink href="/">
           <Image
             src="/images/LOGO.png"
@@ -105,27 +105,32 @@ export function Navigation() {
         </TransitionLink>
         <button
           onClick={() => (isOpen ? close() : setIsOpen(true))}
-          className="relative z-50 flex flex-col items-end gap-1.5"
+          className="relative z-50 cursor-pointer p-3 flex flex-col items-end gap-1.5"
           aria-label={isOpen ? "Close menu" : "Open menu"}
         >
           <span
             className={`block h-px bg-white transition-all duration-300 ${
-              isOpen ? "w-5 rotate-45 translate-y-[3.5px]" : "w-6"
+              isOpen ? "w-5 rotate-45 translate-y-[3.5px]" : "w-7"
+            }`}
+          />
+          <span
+            className={`block  opacity-100 h-px bg-white transition-all duration-300 ${
+              isOpen ? " hidden opacity-0" : "w-5"
             }`}
           />
           <span
             className={`block h-px bg-white transition-all duration-300 ${
-              isOpen ? "w-5 -rotate-45 -translate-y-[3.5px]" : "w-4"
+              isOpen ? "w-5 -rotate-45 -translate-y-[3.5px]" : "w-3"
             }`}
           />
         </button>
       </header>
 
       {isOpen && (
-        <div className="fixed inset-0 z-40 flex w-screen h-screen">
+        <div className="fixed inset-0 z-50 flex w-screen h-screen">
           <div
             ref={leftPanel}
-            className="flex h-full w-1/2 max-sm:w-full items-start bg-[#131313]"
+            className="flex h-full w-full right-8 max-sm:w-full items-start bg-[#131313]/60 backdrop-blur-2xl"
             style={{ transform: "translateX(-100%)" }}
           >
             <div className="w-full px-[12%] max-sm:px-[6%] max-sm:pt-16">
@@ -136,7 +141,7 @@ export function Navigation() {
                     href={link.href}
                     className="group flex items-center gap-4 py-5 max-sm:py-3 border-b border-white/10 transition-transform duration-300 hover:translate-x-2"
                   >
-                    <span className="font-mono text-xs tracking-wider text-[#C08457]">
+                    <span className="font-mono text-xs tracking-wider text-[#DC2626]">
                       ({link.num})
                     </span>
                     <span className="text-xl max-sm:text-lg font-serif font-bold tracking-tight text-white transition-all duration-300 sm:text-2xl lg:text-3xl">
@@ -150,9 +155,31 @@ export function Navigation() {
 
           <div
             ref={rightPanel}
-            className="flex h-full w-1/2 max-sm:hidden items-center justify-center bg-[#090909]"
+            className="relative flex h-full w-full max-sm:hidden items-center justify-center bg-[#090909]"
             style={{ transform: "translateX(100%)" }}
           >
+            {/* close button */}
+            <button
+              onClick={() => (isOpen ? close() : setIsOpen(true))}
+              className="absolute top-4 right-14 z-50 cursor-pointer p-3 flex flex-col items-end gap-1.5"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+            >
+              <span
+                className={`block h-px bg-white transition-all duration-300 ${
+                  isOpen ? "w-5 rotate-45 translate-y-[3.5px]" : "w-7"
+                }`}
+              />
+              <span
+                className={`block  opacity-100 h-px bg-white transition-all duration-300 ${
+                  isOpen ? " hidden opacity-0" : "w-5"
+                }`}
+              />
+              <span
+                className={`block h-px bg-white transition-all duration-300 ${
+                  isOpen ? "w-5 -rotate-45 -translate-y-[3.5px]" : "w-3"
+                }`}
+              />
+            </button>
             <div
               ref={rightItems}
               className="flex flex-col items-center gap-14 max-sm:gap-8 text-center"
@@ -161,15 +188,16 @@ export function Navigation() {
                 <Image
                   src="/images/LOGO.png"
                   alt="KALLA"
-                  width={100}
-                  height={100}
-                  className="h-14 w-auto max-sm:h-10"
+                  width={500}
+                  height={200}
+                  className="w-50 object-contain"
+                  priority
                 />
               </div>
 
               <div className="space-y-5">
                 <div>
-                  <p className="mb-1 text-xs font-mono tracking-[0.15em] text-[#C08457] uppercase">
+                  <p className="mb-1 text-xs font-mono tracking-[0.15em] text-[#DC2626] uppercase">
                     Email
                   </p>
                   <a
@@ -180,7 +208,7 @@ export function Navigation() {
                   </a>
                 </div>
                 <div>
-                  <p className="mb-1 text-xs font-mono tracking-[0.15em] text-[#C08457] uppercase">
+                  <p className="mb-1 text-xs font-mono tracking-[0.15em] text-[#DC2626] uppercase">
                     Lokasi
                   </p>
                   <p className="text-sm text-[#A1A1AA]">Bandung, Indonesia</p>
@@ -188,7 +216,7 @@ export function Navigation() {
               </div>
 
               <div>
-                <p className="mb-3 text-xs font-mono tracking-[0.15em] text-[#C08457] uppercase">
+                <p className="mb-3 text-xs font-mono tracking-[0.15em] text-[#DC2626] uppercase">
                   Social
                 </p>
                 <div className="flex gap-6">

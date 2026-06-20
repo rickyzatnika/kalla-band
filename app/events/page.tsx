@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { useGSAP } from "@gsap/react";
@@ -30,10 +31,31 @@ const upcomingEvents = [
 ];
 
 export default function Events() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    gsap.fromTo(
+      bgRef.current,
+      { scale: 1.3, filter: "blur(12px)" },
+      { scale: 1, filter: "blur(0px)", duration: 1.8, ease: "power3.out" },
+    );
+
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top top",
+      end: "bottom top",
+      scrub: 1,
+      onUpdate: (self) => {
+        gsap.set(bgRef.current, {
+          y: self.progress * -80,
+          scale: 1 + self.progress * 0.08,
+        });
+      },
+    });
+
     gsap.fromTo(
       headerRef.current,
       { y: 40, opacity: 0 },
@@ -59,10 +81,20 @@ export default function Events() {
     <>
       <Navigation />
       <main className="min-h-screen bg-[#090909] pt-20">
-        <section className="px-6 py-32">
-          <div className="mx-auto max-w-5xl">
+        <section ref={sectionRef} className="relative overflow-hidden px-6 py-32">
+          <div ref={bgRef} className="absolute inset-0 w-screen left-1/2 -translate-x-1/2">
+            <Image
+              src="/images/cover-album.jpeg"
+              alt=""
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#090909] via-[#090909]/70 to-transparent" />
+          </div>
+          <div className="relative z-10 mx-auto max-w-5xl">
             <div ref={headerRef}>
-              <p className="text-xs font-medium tracking-[0.3em] text-[#C08457] uppercase">
+              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                 Pengalaman Live
               </p>
               <h1 className="mt-4 font-serif text-6xl font-bold tracking-wide sm:text-7xl">
@@ -85,9 +117,9 @@ export default function Events() {
               {upcomingEvents.map((event) => (
                 <div
                   key={event.title}
-                  className="group rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8 transition-all duration-500 hover:border-[#C08457]/30"
+                  className="group rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8 transition-all duration-500 hover:border-[#DC2626]/30"
                 >
-                  <div className="mb-3 inline-block rounded-full border border-[rgba(255,255,255,0.08)] px-4 py-1 text-xs font-medium text-[#C08457]">
+                  <div className="mb-3 inline-block rounded-full border border-[rgba(255,255,255,0.08)] px-4 py-1 text-xs font-medium text-[#DC2626]">
                     {event.type}
                   </div>
                   <h3 className="font-serif text-2xl font-bold tracking-wide">
@@ -95,14 +127,14 @@ export default function Events() {
                   </h3>
                   <div className="mt-6 grid gap-4 sm:grid-cols-2">
                     <div className="flex items-start gap-3">
-                      <Calendar className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#C08457]" />
+                      <Calendar className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#DC2626]" />
                       <div>
                         <p className="text-sm text-[#A1A1AA]">{event.date}</p>
                         <p className="text-xs text-[#A1A1AA]/60">{event.time}</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#C08457]" />
+                      <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#DC2626]" />
                       <div>
                         <p className="text-sm text-[#A1A1AA]">{event.venue}</p>
                         <p className="text-xs text-[#A1A1AA]/60">{event.city}</p>

@@ -13,10 +13,20 @@ import { X } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 const galleryItems = [
-  { id: 1, image: "/gallery-1.png", title: "Penampilan Live", category: "Konser" },
+  {
+    id: 1,
+    image: "/gallery-1.png",
+    title: "Penampilan Live",
+    category: "Konser",
+  },
   { id: 2, image: "/gallery-2.png", title: "Sesi Studio", category: "Studio" },
   { id: 3, image: "/gallery-3.png", title: "Festival", category: "Konser" },
-  { id: 4, image: "/gallery-4.png", title: "Momen Festival", category: "Acara" },
+  {
+    id: 4,
+    image: "/gallery-4.png",
+    title: "Momen Festival",
+    category: "Acara",
+  },
   { id: 5, image: "/gallery-5.png", title: "Rekaman", category: "Studio" },
 ];
 
@@ -25,26 +35,50 @@ const categories = ["Semua", "Konser", "Studio", "Acara"];
 export default function Gallery() {
   const [selected, setSelected] = useState<string | null>(null);
   const [activeCat, setActiveCat] = useState("Semua");
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const filterRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const filtered = activeCat === "Semua"
-    ? galleryItems
-    : galleryItems.filter((item) => item.category === activeCat);
+  const filtered =
+    activeCat === "Semua"
+      ? galleryItems
+      : galleryItems.filter((item) => item.category === activeCat);
 
   useGSAP(() => {
     gsap.fromTo(
-      headerRef.current,
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
+      bgRef.current,
+      { scale: 1.3, filter: "blur(12px)" },
+      { scale: 1, filter: "blur(0px)", duration: 1.8, ease: "power3.out" },
     );
 
-    const filterEls = filterRef.current ? Array.from(filterRef.current.children) : [];
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top top",
+      end: "bottom top",
+      scrub: 1,
+      onUpdate: (self) => {
+        gsap.set(bgRef.current, {
+          y: self.progress * -80,
+          scale: 1 + self.progress * 0.08,
+        });
+      },
+    });
+
+    gsap.fromTo(
+      headerRef.current,
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
+    );
+
+    const filterEls = filterRef.current
+      ? Array.from(filterRef.current.children)
+      : [];
     gsap.fromTo(
       filterEls,
       { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: "power2.out" }
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: "power2.out" },
     );
 
     ScrollTrigger.create({
@@ -55,7 +89,14 @@ export default function Gallery() {
         gsap.fromTo(
           els,
           { y: 60, opacity: 0, scale: 0.95 },
-          { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" }
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out",
+          },
         );
       },
       once: true,
@@ -66,10 +107,26 @@ export default function Gallery() {
     <>
       <Navigation />
       <main className="min-h-screen bg-[#090909] pt-20">
-        <section className="px-6 py-32">
-          <div className="mx-auto max-w-6xl">
+        <section
+          ref={sectionRef}
+          className="relative overflow-hidden px-6 py-32"
+        >
+          <div
+            ref={bgRef}
+            className="absolute opacity-50 inset-0 w-screen left-1/2 -translate-x-1/2"
+          >
+            <Image
+              src="/images/cover-album.jpeg"
+              alt=""
+              fill
+              className="object-cover blur-[5px] "
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#090909] via-[#090909]/70 to-transparent" />
+          </div>
+          <div className="relative z-10 mx-auto max-w-6xl">
             <div ref={headerRef}>
-              <p className="text-xs font-medium tracking-[0.3em] text-[#C08457] uppercase">
+              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                 Visual
               </p>
               <h1 className="mt-4 font-serif text-6xl font-bold tracking-wide sm:text-7xl">
@@ -84,8 +141,8 @@ export default function Gallery() {
                   onClick={() => setActiveCat(cat)}
                   className={`rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ${
                     activeCat === cat
-                      ? "bg-[#C08457] text-white"
-                      : "border border-[rgba(255,255,255,0.08)] text-[#A1A1AA] hover:border-[#C08457]/30 hover:text-white"
+                      ? "bg-[#DC2626] text-white"
+                      : "border border-[rgba(255,255,255,0.08)] text-[#A1A1AA] hover:border-[#DC2626]/30 hover:text-white"
                   }`}
                 >
                   {cat}
@@ -93,7 +150,10 @@ export default function Gallery() {
               ))}
             </div>
 
-            <div ref={gridRef} className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div
+              ref={gridRef}
+              className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            >
               {filtered.map((item) => (
                 <div
                   key={item.id}
@@ -109,7 +169,9 @@ export default function Gallery() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   <div className="absolute inset-x-0 bottom-0 p-6 opacity-0 transition-all duration-500 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0">
                     <p className="font-serif text-lg font-bold">{item.title}</p>
-                    <p className="mt-1 text-xs text-[#C08457]">{item.category}</p>
+                    <p className="mt-1 text-xs text-[#DC2626]">
+                      {item.category}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -143,7 +205,7 @@ export default function Gallery() {
                 />
                 <button
                   onClick={() => setSelected(null)}
-                  className="absolute -top-14 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-[#C08457] text-white transition-all hover:bg-[#D4A373]"
+                  className="absolute -top-14 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-[#DC2626] text-white transition-all hover:bg-[#EF4444]"
                 >
                   <X className="h-5 w-5" />
                 </button>

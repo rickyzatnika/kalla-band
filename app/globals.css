@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+::-webkit-scrollbar { display: none; }
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -11,8 +14,8 @@
   --color-border: rgba(255, 255, 255, 0.08);
   --color-muted: #A1A1AA;
   --color-muted-foreground: #A1A1AA;
-  --color-accent: #C08457;
-  --color-accent-hover: #D4A373;
+  --color-accent: #DC2626;
+  --color-accent-hover: #EF4444;
   --color-accent-foreground: #FFFFFF;
   --color-card: #181818;
   --color-card-foreground: #FFFFFF;
@@ -20,11 +23,11 @@
   --color-popover-foreground: #FFFFFF;
   --color-secondary: #111111;
   --color-secondary-foreground: #FFFFFF;
-  --color-primary: #C08457;
+  --color-primary: #DC2626;
   --color-primary-foreground: #FFFFFF;
   --color-destructive: #EF4444;
   --color-success: #22C55E;
-  --color-ring: #C08457;
+  --color-ring: #DC2626;
   --color-input: rgba(255, 255, 255, 0.08);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -71,6 +74,14 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @keyframes scroll-indicator {
@@ -81,3 +92,5 @@
 .animate-scroll {
   animation: scroll-indicator 1.8s ease-in-out infinite;
 }
+
+

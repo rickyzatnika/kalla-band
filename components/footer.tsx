@@ -8,7 +8,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[rgba(255,255,255,0.06)] px-6 py-20">
+    <footer className=" w-full px-6 py-20 bg-[url('/images/bg.jpg')] bg-contain ">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
@@ -27,7 +27,7 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="mb-4 text-xs font-medium tracking-[0.2em] text-[#C08457] uppercase">
+            <p className="mb-4 text-xs font-medium tracking-[0.2em] text-[#DC2626] uppercase">
               Navigasi
             </p>
             <ul className="space-y-3">
@@ -51,7 +51,7 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="mb-4 text-xs font-medium tracking-[0.2em] text-[#C08457] uppercase">
+            <p className="mb-4 text-xs font-medium tracking-[0.2em] text-[#DC2626] uppercase">
               Terhubung
             </p>
             <ul className="space-y-3">

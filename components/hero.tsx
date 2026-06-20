@@ -13,7 +13,7 @@ export function Hero() {
   const container = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const tagRef = useRef<HTMLParagraphElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
+  const imageRef2 = useRef<HTMLDivElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
 
@@ -32,7 +32,7 @@ export function Hero() {
       { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
     )
       .fromTo(
-        titleRef.current,
+        imageRef2.current,
         { y: 60, opacity: 0, scale: 0.97 },
         { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power4.out" },
         "-=0.3",
@@ -84,33 +84,35 @@ export function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6">
-        <div className="max-w-3xl">
-          <p
-            ref={tagRef}
-            className="text-xs font-medium tracking-[0.3em] text-[#C08457] uppercase"
-          >
-            Emotional Alternative Pop
-          </p>
-
-          <h1
-            ref={titleRef}
-            className="mt-3 font-serif text-8xl font-bold leading-[0.85] tracking-tight sm:text-9xl lg:text-[11rem]"
-          >
-            KALLA
-          </h1>
+        <div className="  max-w-3xl ">
+          <div ref={imageRef2}>
+            <Image
+              src="/images/kalla-text.png"
+              alt="KALLA Band"
+              width={500}
+              height={200}
+              className=" object-contain md:object-cover w-50 h-20 md:w-[500px] h-[200px]"
+              loading="eager"
+              priority
+            />
+          </div>
 
           <p
             ref={descRef}
-            className="mt-6 max-w-xl text-base leading-relaxed text-[#A1A1AA] sm:text-lg"
+            className="relative -top-14 md:-top-10 max-w-xl text-base leading-relaxed text-[#A1A1AA] sm:text-lg"
           >
-            Band emotional alternative pop asal Bandung. Musik tentang
-            kehilangan, cinta diam-diam, kerinduan, dan proses menerima hidup.
+            adalah band emotional alternative pop asal Bandung yang lahir dari
+            keresahan, kenangan, dan fase-fase kehidupan yang tidak selalu bisa
+            diungkapkan lewat kata-kata.
           </p>
 
-          <div ref={ctaRef} className="mt-10 flex flex-col gap-4 sm:flex-row">
+          <div
+            ref={ctaRef}
+            className="relative -top-8 md:-top-0 flex flex-col gap-4 sm:flex-row"
+          >
             <TransitionLink
               href="/music"
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#C08457] px-8 py-3.5 text-sm font-medium text-white transition-all duration-500 hover:bg-[#D4A373]"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#DC2626] px-8 py-3.5 text-sm font-medium text-white transition-all duration-500 hover:bg-[#EF4444]"
             >
               Dengarkan Musik
               <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">

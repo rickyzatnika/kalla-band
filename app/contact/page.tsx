@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { useGSAP } from "@gsap/react";
@@ -23,6 +24,8 @@ const contactSchema = z.object({
 type ContactForm = z.infer<typeof contactSchema>;
 
 export default function Contact() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
@@ -43,6 +46,25 @@ export default function Contact() {
   };
 
   useGSAP(() => {
+    gsap.fromTo(
+      bgRef.current,
+      { scale: 1.3, filter: "blur(12px)" },
+      { scale: 1, filter: "blur(0px)", duration: 1.8, ease: "power3.out" },
+    );
+
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top top",
+      end: "bottom top",
+      scrub: 1,
+      onUpdate: (self) => {
+        gsap.set(bgRef.current, {
+          y: self.progress * -80,
+          scale: 1 + self.progress * 0.08,
+        });
+      },
+    });
+
     gsap.fromTo(
       headerRef.current,
       { y: 40, opacity: 0 },
@@ -81,10 +103,20 @@ export default function Contact() {
     <>
       <Navigation />
       <main className="min-h-screen bg-[#090909] pt-20">
-        <section className="px-6 py-32">
-          <div className="mx-auto max-w-5xl">
+        <section ref={sectionRef} className="relative overflow-hidden px-6 py-32">
+          <div ref={bgRef} className="absolute inset-0 w-screen left-1/2 -translate-x-1/2">
+            <Image
+              src="/images/cover-album.jpeg"
+              alt=""
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#090909] via-[#090909]/70 to-transparent" />
+          </div>
+          <div className="relative z-10 mx-auto max-w-5xl">
             <div ref={headerRef}>
-              <p className="text-xs font-medium tracking-[0.3em] text-[#C08457] uppercase">
+              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                 Hubungi Kami
               </p>
               <h1 className="mt-4 font-serif text-6xl font-bold tracking-wide sm:text-7xl">
@@ -102,17 +134,17 @@ export default function Contact() {
             <div className="grid gap-16 lg:grid-cols-5">
               <div ref={infoRef} className="space-y-8 lg:col-span-2">
                 <div className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8">
-                  <Mail className="h-6 w-6 text-[#C08457]" />
+                  <Mail className="h-6 w-6 text-[#DC2626]" />
                   <p className="mt-4 text-sm text-[#A1A1AA]">Email</p>
                   <a
                     href="mailto:hello@kalla.id"
-                    className="mt-1 block font-medium transition-colors hover:text-[#C08457]"
+                    className="mt-1 block font-medium transition-colors hover:text-[#DC2626]"
                   >
                     hello@kalla.id
                   </a>
                 </div>
                 <div className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8">
-                  <MapPin className="h-6 w-6 text-[#C08457]" />
+                  <MapPin className="h-6 w-6 text-[#DC2626]" />
                   <p className="mt-4 text-sm text-[#A1A1AA]">Lokasi</p>
                   <p className="mt-1 font-medium">Bandung, Indonesia</p>
                 </div>
@@ -142,7 +174,7 @@ export default function Contact() {
                       <input
                         {...register("name")}
                         placeholder="Nama Anda"
-                        className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#C08457]"
+                        className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                       />
                       {errors.name && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.name.message}</p>}
                     </div>
@@ -150,7 +182,7 @@ export default function Contact() {
                       <input
                         {...register("email")}
                         placeholder="Email Anda"
-                        className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#C08457]"
+                        className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                       />
                       {errors.email && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.email.message}</p>}
                     </div>
@@ -159,7 +191,7 @@ export default function Contact() {
                     <input
                       {...register("subject")}
                       placeholder="Subjek"
-                      className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#C08457]"
+                      className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                     />
                     {errors.subject && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.subject.message}</p>}
                   </div>
@@ -168,14 +200,14 @@ export default function Contact() {
                       {...register("message")}
                       rows={6}
                       placeholder="Pesan Anda..."
-                      className="w-full resize-none rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#C08457]"
+                      className="w-full resize-none rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                     />
                     {errors.message && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.message.message}</p>}
                   </div>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="inline-flex items-center gap-2 rounded-full bg-[#C08457] px-8 py-3.5 text-sm font-medium text-white transition-all duration-300 hover:bg-[#D4A373] disabled:opacity-50"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#DC2626] px-8 py-3.5 text-sm font-medium text-white transition-all duration-300 hover:bg-[#EF4444] disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       "Mengirim..."

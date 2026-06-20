@@ -6,24 +6,25 @@ export const animatePageIn = () => {
   const right = document.getElementById("curtain-right");
   if (!left || !right) return;
 
-  gsap.to(left, { x: "-100%", duration: 0.8, ease: "power4.in" });
-  gsap.to(right, { x: "100%", duration: 0.8, ease: "power4.in" });
+  gsap.killTweensOf([left, right]);
+  gsap.to(left, { x: "-100%", duration: 0.7, ease: "power3.inOut" });
+  gsap.to(right, { x: "100%", duration: 0.7, ease: "power3.inOut" });
 };
 
 export const animatePageOut = (href: string, router: AppRouterInstance) => {
   const left = document.getElementById("curtain-left");
   const right = document.getElementById("curtain-right");
-  if (!left || !right) return;
+  if (!left || !right) {
+    router.push(href);
+    return;
+  }
 
-  gsap.to(left, {
-    x: "0%",
-    duration: 1,
-    ease: "power4.out",
-  });
+  gsap.killTweensOf([left, right]);
+  gsap.to(left, { x: "0%", duration: 0.7, ease: "power3.inOut" });
   gsap.to(right, {
     x: "0%",
-    duration: 1,
-    ease: "power4.out",
+    duration: 0.7,
+    ease: "power3.inOut",
     onComplete: () => router.push(href),
   });
 };

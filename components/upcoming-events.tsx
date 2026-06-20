@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TransitionLink } from "@/components/transition-link";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -67,15 +68,12 @@ export function UpcomingEvents() {
   return (
     <section
       ref={section}
-      className="border-t border-[rgba(255,255,255,0.06)] px-6 py-32"
+      className="border-t border-[rgba(255,255,255,0.06)] px-6 pt-32"
     >
       <div className="mx-auto max-w-7xl">
-        <div
-          ref={headerRef}
-          className="mb-16 flex items-end justify-between"
-        >
+        <div ref={headerRef} className="mb-16 flex items-end justify-between">
           <div>
-            <p className="text-xs font-medium tracking-[0.3em] text-[#C08457] uppercase">
+            <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
               Jadwal
             </p>
             <h2 className="mt-4 font-serif text-5xl font-bold tracking-wide sm:text-6xl">
@@ -94,9 +92,9 @@ export function UpcomingEvents() {
           {events.map((event) => (
             <div
               key={event.title}
-              className="group rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8 transition-all duration-500 hover:border-[#C08457]/30 hover:bg-[#181818]"
+              className="group rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8 transition-all duration-500 hover:border-[#DC2626]/30 hover:bg-[#181818]"
             >
-              <div className="mb-1 inline-block rounded-full border border-[rgba(255,255,255,0.08)] px-4 py-1.5 text-xs font-medium text-[#C08457]">
+              <div className="mb-1 inline-block rounded-full border border-[rgba(255,255,255,0.08)] px-4 py-1.5 text-xs font-medium text-[#DC2626]">
                 {event.type}
               </div>
               <h3 className="mt-4 font-serif text-2xl font-bold tracking-wide">
@@ -104,11 +102,11 @@ export function UpcomingEvents() {
               </h3>
               <div className="mt-6 space-y-3">
                 <div className="flex items-center gap-3 text-sm text-[#A1A1AA]">
-                  <Calendar className="h-4 w-4 text-[#C08457]" />
+                  <Calendar className="h-4 w-4 text-[#DC2626]" />
                   {event.date}
                 </div>
                 <div className="flex items-center gap-3 text-sm text-[#A1A1AA]">
-                  <MapPin className="h-4 w-4 text-[#C08457]" />
+                  <MapPin className="h-4 w-4 text-[#DC2626]" />
                   {event.venue}, {event.location}
                 </div>
               </div>
@@ -124,6 +122,28 @@ export function UpcomingEvents() {
             Semua Agenda <ArrowRight className="h-4 w-4" />
           </TransitionLink>
         </div>
+      </div>
+      <div className="w-ful py-8 flex items-center justify-center">
+        <Image
+          src="/images/stage-plot.jpeg"
+          alt="stageplot"
+          width={800}
+          height={400}
+          priority
+          loading="eager"
+          className="w-full object-contain"
+        />
+      </div>
+      <div className="w-ful pb-8 flex items-center justify-center">
+        <Image
+          src="/images/TAGLINE.png"
+          alt="stageplot"
+          width={500}
+          height={250}
+          priority
+          loading="eager"
+          className="w-[500px] h-[250px] object-contain"
+        />
       </div>
     </section>
   );
