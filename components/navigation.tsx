@@ -102,7 +102,7 @@ export function Navigation() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-14 py-5">
+      <header className="fixed top-0 left-0  right-0 z-[100] flex items-center justify-between px-4 md:px-10 py-5">
         <TransitionLink href="/">
           <Image
             src="/images/bulat.png"
@@ -133,6 +133,11 @@ export function Navigation() {
               isOpen ? "w-5 -rotate-45 -translate-y-[3.5px]" : "w-3"
             }`}
           />
+          <span
+            className={`relative left-1 block text-[10px] ${isOpen ? "" : ""}`}
+          >
+            {isOpen ? "Close" : " Menu"}
+          </span>
         </button>
       </header>
 
@@ -143,13 +148,13 @@ export function Navigation() {
             className="flex w-full md:h-full items-start bg-[#131313]/60 backdrop-blur-2xl"
             style={{ transform: "translateX(-100%)" }}
           >
-            <div className="w-full pt-16 sm:pt-20 md:pt-0">
-              <div ref={leftItems} className="flex flex-col">
+            <div className="w-full pt-16 sm:pt-20 md:pt-0 px-3 md:px-0 ">
+              <div ref={leftItems} className="flex flex-col pt-0 md:pt-12">
                 {links.map((link) => (
                   <TransitionLink
                     key={link.href}
                     href={link.href}
-                    className="group flex pl-[6%] max-sm:pl-[3%] items-center gap-4 py-4 max-sm:py-2 border-b border-white/10 transition-transform duration-300 hover:translate-x-2"
+                    className="group capitalize flex pl-[6%] max-sm:pl-[3%] items-center gap-4 py-4 max-sm:py-2 border-b border-white/10 transition-transform duration-300 hover:translate-x-2"
                   >
                     <span className="font-mono text-xs tracking-wider text-[#DC2626]">
                       ({link.num})
@@ -168,28 +173,6 @@ export function Navigation() {
             className="relative flex w-full md:h-full items-center justify-center bg-[#090909]"
             style={{ transform: "translateX(100%)" }}
           >
-            {/* close button — hidden on mobile (header button handles it) */}
-            <button
-              onClick={() => (isOpen ? close() : setIsOpen(true))}
-              className="absolute top-4 right-14 z-50 cursor-pointer p-3 flex-col items-end gap-1.5 hidden md:flex"
-              aria-label={isOpen ? "Close menu" : "Open menu"}
-            >
-              <span
-                className={`block h-px bg-white transition-all duration-300 ${
-                  isOpen ? "w-5 rotate-45 translate-y-[3.5px]" : "w-7"
-                }`}
-              />
-              <span
-                className={`block  opacity-100 h-px bg-white transition-all duration-300 ${
-                  isOpen ? " hidden opacity-0" : "w-5"
-                }`}
-              />
-              <span
-                className={`block h-px bg-white transition-all duration-300 ${
-                  isOpen ? "w-5 -rotate-45 -translate-y-[3.5px]" : "w-3"
-                }`}
-              />
-            </button>
             <div
               ref={rightItems}
               className="flex flex-col items-center gap-14 max-sm:gap-8 text-center py-10 md:py-0"
@@ -200,14 +183,14 @@ export function Navigation() {
                   alt="KALLA"
                   width={500}
                   height={200}
-                  className="w-50 object-contain"
+                  className="w-32 md:w-50 object-contain"
                   priority
                 />
               </div>
 
               <div className="space-y-5">
                 <div>
-                  <p className="mb-1 text-xs font-mono tracking-[0.15em] text-[#DC2626] uppercase">
+                  <p className="mb-1 text-xs font-mono tracking-[0.15em] text-[#DC2626] capitalize">
                     Email
                   </p>
                   <a
@@ -218,7 +201,7 @@ export function Navigation() {
                   </a>
                 </div>
                 <div>
-                  <p className="mb-1 text-xs font-mono tracking-[0.15em] text-[#DC2626] uppercase">
+                  <p className="mb-1 text-xs font-mono tracking-[0.15em] text-[#DC2626] capitalize">
                     Lokasi
                   </p>
                   <p className="text-sm text-[#A1A1AA]">Bandung, Indonesia</p>
@@ -226,7 +209,7 @@ export function Navigation() {
               </div>
 
               <div>
-                <p className="mb-3 text-xs font-mono tracking-[0.15em] text-[#DC2626] uppercase">
+                <p className="mb-3 text-xs font-mono tracking-[0.15em] text-[#DC2626] capitalize">
                   Social
                 </p>
                 <div className="flex gap-6">

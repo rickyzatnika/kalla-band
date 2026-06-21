@@ -180,7 +180,7 @@ export default function Press() {
           </div>
           <div className="relative z-10 mx-auto max-w-5xl">
             <div ref={headerRef}>
-              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
+              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
                 Pers & Media
               </p>
               <h1 ref={titleRef} className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
@@ -209,7 +209,7 @@ export default function Press() {
               <div ref={pressRef}>
                 <div className="mb-8 flex items-end justify-between border-b border-[rgba(255,255,255,0.06)] pb-4">
                   <div>
-                    <span className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
+                    <span className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
                       01
                     </span>
                     <h3 className="mt-1 font-title text-2xl font-bold tracking-wide sm:text-3xl">
@@ -261,7 +261,7 @@ export default function Press() {
               <div ref={techRef}>
                 <div className="mb-8 flex items-end justify-between border-b border-[rgba(255,255,255,0.06)] pb-4">
                   <div>
-                    <span className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
+                    <span className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
                       02
                     </span>
                     <h3 className="mt-1 font-title text-2xl font-bold tracking-wide sm:text-3xl">

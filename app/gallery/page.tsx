@@ -139,7 +139,7 @@ export default function Gallery() {
           </div>
           <div className="relative z-10 mx-auto max-w-6xl">
             <div ref={headerRef}>
-              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
+              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
                 Visual
               </p>
               <h1 ref={titleRef} className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">

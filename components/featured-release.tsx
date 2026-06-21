@@ -150,7 +150,7 @@ export function FeaturedRelease() {
         <div className="mb-20">
           <p
             ref={labelRef}
-            className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase"
+            className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize"
           >
             Rilis Terbaru
           </p>
@@ -158,22 +158,22 @@ export function FeaturedRelease() {
             ref={titleRef}
             className="mt-4 font-title text-5xl font-bold tracking-wide sm:text-6xl"
           >
-            Dengarkan KALLA
+            Dengarkan Kalla
           </h2>
         </div>
 
         <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
           <div
             ref={imageWrapRef}
-            className="relative aspect-4/5 w-full max-w-md overflow-hidden  rounded-3xl bg-[#111]"
+            className="relative col-span-1 w-full h-full  rounded-3xl bg-[#111]"
           >
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="flex w-full h-full items-center justify-center">
               <Image
                 src="/images/cover-album.jpeg"
                 alt="album cover"
-                className="object-cover object-left w-full h-full rounded-3xl"
-                width={500}
-                height={400}
+                className="object-contain object-left  rounded-3xl"
+                width={600}
+                height={200}
                 priority
               />
             </div>
@@ -182,10 +182,10 @@ export function FeaturedRelease() {
               <p className="mt-1 text-sm text-[#A1A1AA]">2026</p>
             </div>
           </div>
-          <div>
+          <div className="col-span-1">
             <div>
               <p className="font-title text-2xl font-bold tracking-wide">
-                TENTANG MIMPI YANG BELUM USAI
+                Tentang Mimpi yang Belum Usai
               </p>
               <p className="mt-4 text-lg leading-relaxed text-[#A1A1AA]">
                 Album ini berisi satu single original KALLA serta beberapa lagu

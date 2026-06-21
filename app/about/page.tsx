@@ -145,7 +145,7 @@ export default function About() {
           </div>
           <div className="relative z-10 mx-auto max-w-5xl">
             <div ref={heroRef}>
-              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
+              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
                 Tentang
               </p>
               <h1
@@ -169,7 +169,7 @@ export default function About() {
         <section className="border-t border-[rgba(255,255,255,0.06)] py-32">
           <div className="px-6">
             <div className="mx-auto max-w-6xl">
-              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
+              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
                 Kolektif
               </p>
               <h2 className="mt-4 font-title text-5xl font-bold tracking-wide">

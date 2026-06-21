@@ -142,7 +142,7 @@ export function UpcomingEvents() {
       <div className="mx-auto max-w-7xl">
         <div ref={headerRef} className="mb-16 flex items-end justify-between">
           <div>
-            <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
+            <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
               Jadwal
             </p>
             <h2 className="mt-4 font-title text-5xl font-bold tracking-wide sm:text-6xl">

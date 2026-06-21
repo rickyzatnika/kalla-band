@@ -107,7 +107,7 @@ export default function Events() {
           </div>
           <div className="relative z-10 mx-auto max-w-5xl">
             <div ref={headerRef}>
-              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
+              <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
                 Pengalaman Live
               </p>
               <h1 ref={titleRef} className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">

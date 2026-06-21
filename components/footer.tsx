@@ -54,7 +54,7 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="mb-4 text-xs font-medium tracking-[0.2em] text-[#DC2626] uppercase">
+            <p className="mb-4 text-xs font-medium tracking-[0.2em] text-[#DC2626] capitalize">
               Navigasi
             </p>
             <ul className="space-y-3">
@@ -78,7 +78,7 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="mb-4 text-xs font-medium tracking-[0.2em] text-[#DC2626] uppercase">
+            <p className="mb-4 text-xs font-medium tracking-[0.2em] text-[#DC2626] capitalize">
               Terhubung
             </p>
             <ul className="space-y-3">
