@@ -92,10 +92,10 @@ export function Navigation() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-14 py-5">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 md:px-14 py-5">
         <TransitionLink href="/">
           <Image
-            src="/images/LOGO.png"
+            src="/images/bulat.png"
             alt="KALLA"
             width={40}
             height={40}
