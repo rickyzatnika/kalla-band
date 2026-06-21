@@ -127,10 +127,10 @@ export function Navigation() {
       </header>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex w-screen h-screen">
+        <div className="fixed inset-0 z-50 flex">
           <div
             ref={leftPanel}
-            className="flex h-full w-full right-8 max-sm:w-full items-start bg-[#131313]/60 backdrop-blur-2xl"
+            className="flex h-full w-full max-sm:w-full items-start bg-[#131313]/60 backdrop-blur-2xl"
             style={{ transform: "translateX(-100%)" }}
           >
             <div className="w-full  max-sm:pt-16">

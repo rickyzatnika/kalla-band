@@ -95,7 +95,7 @@ export default function Events() {
       <Navigation />
       <main className="min-h-screen bg-[#090909] pt-20">
         <section ref={sectionRef} className="relative overflow-hidden px-6 py-32">
-          <div ref={bgRef} className="absolute inset-0 w-screen left-1/2 -translate-x-1/2">
+          <div ref={bgRef} className="absolute inset-0">
             <Image
               src="/gallery-1.png"
               alt=""

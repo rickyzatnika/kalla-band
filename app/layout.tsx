@@ -61,7 +61,9 @@ export default function RootLayout({
   return (
     <html lang="id" className="dark">
       <body className={`${cinzel.variable} ${poppins.variable} antialiased`}>
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          <div className="overflow-x-hidden">{children}</div>
+        </SmoothScroll>
       </body>
     </html>
   );

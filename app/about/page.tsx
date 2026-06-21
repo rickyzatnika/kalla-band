@@ -132,7 +132,7 @@ export default function About() {
         >
           <div
             ref={bgRef}
-            className="absolute inset-0 w-screen left-1/2 -translate-x-1/2"
+            className="absolute inset-0"
           >
               <Image
                   src="/images/hero.jpeg"

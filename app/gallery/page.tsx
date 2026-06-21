@@ -126,7 +126,7 @@ export default function Gallery() {
         >
           <div
             ref={bgRef}
-            className="absolute opacity-50 inset-0 w-screen left-1/2 -translate-x-1/2"
+            className="absolute opacity-50 inset-0"
           >
             <Image
               src="/images/cover-album.jpeg"

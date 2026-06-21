@@ -123,7 +123,7 @@ export function UpcomingEvents() {
           </TransitionLink>
         </div>
       </div>
-      <div className="w-ful py-8 flex items-center justify-center">
+      <div className="w-full py-8 flex items-center justify-center">
         <Image
           src="/images/stage-plot.jpeg"
           alt="stageplot"
@@ -134,7 +134,7 @@ export function UpcomingEvents() {
           className="w-full object-contain"
         />
       </div>
-      <div className="w-ful pb-8 flex items-center justify-center">
+      <div className="w-full pb-8 flex items-center justify-center">
         <Image
           src="/images/TAGLINE.png"
           alt="stageplot"
