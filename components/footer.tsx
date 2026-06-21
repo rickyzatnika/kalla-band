@@ -3,13 +3,40 @@
 import Image from "next/image";
 import { Mail, ExternalLink, Music2 } from "lucide-react";
 import { TransitionLink } from "@/components/transition-link";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const year = new Date().getFullYear();
 
+  useGSAP(() => {
+    if (!contentRef.current) return;
+    gsap.fromTo(
+      contentRef.current,
+      { y: 60, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      },
+    );
+  });
+
   return (
-    <footer className=" w-full px-6 py-20 bg-[url('/images/bg.jpg')] bg-contain ">
-      <div className="mx-auto max-w-7xl">
+    <footer ref={footerRef} className=" w-full px-6 py-20 bg-[url('/images/bg.jpg')] bg-contain ">
+      <div ref={contentRef} className="mx-auto max-w-7xl">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
             <Image

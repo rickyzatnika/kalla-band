@@ -6,16 +6,19 @@ import { TransitionLink } from "@/components/transition-link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function Hero() {
   const container = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
-  const tagRef = useRef<HTMLParagraphElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const imageRef2 = useRef<HTMLDivElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     gsap.fromTo(
@@ -27,25 +30,20 @@ export function Hero() {
     const tl = gsap.timeline();
 
     tl.fromTo(
-      tagRef.current,
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+      imageRef2.current,
+      { y: 60, opacity: 0, scale: 0.97 },
+      { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power4.out" },
     )
-      .fromTo(
-        imageRef2.current,
-        { y: 60, opacity: 0, scale: 0.97 },
-        { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power4.out" },
-        "-=0.3",
-      )
-      .fromTo(
-        descRef.current,
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-        "-=0.4",
-      )
+      .to(descRef.current, { opacity: 1, duration: 0.01 }, "-=0.6")
       .fromTo(
         ctaRef.current,
         { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
+        "-=0.2",
+      )
+      .fromTo(
+        scrollRef.current,
+        { y: 15, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
         "-=0.2",
       );
@@ -64,6 +62,49 @@ export function Hero() {
         });
       },
     });
+
+    ScrollTrigger.create({
+      trigger: container.current,
+      start: "top top",
+      end: "bottom top",
+      scrub: 1,
+      onUpdate: (self) => {
+        if (!overlayRef.current) return;
+        gsap.set(overlayRef.current, {
+          y: self.progress * -40,
+          opacity: 0.6 + self.progress * 0.4,
+        });
+      },
+    });
+
+    ScrollTrigger.create({
+      trigger: container.current,
+      start: "top top",
+      end: "bottom top",
+      scrub: 1,
+      onUpdate: (self) => {
+        if (!contentRef.current) return;
+        gsap.set(contentRef.current, {
+          y: self.progress * -30,
+        });
+      },
+    });
+
+    if (descRef.current) {
+      const split = new SplitType(descRef.current, { types: "words" });
+      gsap.fromTo(
+        split.words,
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.03,
+          ease: "power2.out",
+          delay: 1.2,
+        },
+      );
+    }
   });
 
   return (
@@ -79,11 +120,17 @@ export function Hero() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#090909] via-[#090909]/70 to-transparent" />
+        <div
+          ref={overlayRef}
+          className="absolute inset-0 bg-gradient-to-r from-[#090909] via-[#090909]/70 to-transparent"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-[#090909]/20" />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6">
+      <div
+        ref={contentRef}
+        className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6"
+      >
         <div className="  max-w-3xl ">
           <div ref={imageRef2}>
             <Image
@@ -99,7 +146,7 @@ export function Hero() {
 
           <p
             ref={descRef}
-            className="relative -top-14 md:-top-10 max-w-xl text-base leading-relaxed text-[#A1A1AA] sm:text-lg"
+            className="relative -top-8 md:-top-10 max-w-xl text-base leading-relaxed text-[#A1A1AA] sm:text-lg"
           >
             adalah band emotional alternative pop asal Bandung yang lahir dari
             keresahan, kenangan, dan fase-fase kehidupan yang tidak selalu bisa
@@ -108,7 +155,7 @@ export function Hero() {
 
           <div
             ref={ctaRef}
-            className="relative -top-8 md:-top-0 flex flex-col gap-4 sm:flex-row"
+            className="relative -top-4 md:-top-0 flex flex-col gap-4 sm:flex-row"
           >
             <TransitionLink
               href="/music"
@@ -129,7 +176,10 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2">
+      <div
+        ref={scrollRef}
+        className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2"
+      >
         <div className="h-10 w-6 rounded-full border border-[rgba(255,255,255,0.2)] flex items-start justify-center p-1.5">
           <div className="h-2.5 w-1.5 rounded-full bg-[#A1A1AA] animate-scroll" />
         </div>

@@ -3,7 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
 import { TransitionLink } from "@/components/transition-link";
+
+gsap.registerPlugin(SplitText);
 
 const links = [
   { href: "/", label: "Beranda", num: "1" },
@@ -30,23 +33,19 @@ export function Navigation() {
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
 
+    gsap.set(rightItems.current!.children, { y: 20, opacity: 0 });
+
+    const split = SplitText.create(".nav-label", {
+      type: "words",
+      wordsClass: "nav-word",
+    });
+
+    gsap.set(split.words, { yPercent: 100, opacity: 0 });
+
     const tl = gsap.timeline({ delay: 0 });
 
-    tl.set(leftItems.current!.children, { y: 30, opacity: 0 })
-      .set(rightItems.current!.children, { y: 20, opacity: 0 })
-      .to(leftPanel.current, { x: "0%", duration: 1, ease: "power4.out" }, 0)
+    tl.to(leftPanel.current, { x: "0%", duration: 1, ease: "power4.out" }, 0)
       .to(rightPanel.current, { x: "0%", duration: 1, ease: "power4.out" }, 0)
-      .fromTo(
-        leftItems.current!.children,
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: "power3.out",
-        },
-      )
       .fromTo(
         rightItems.current!.children,
         { y: 20, opacity: 0 },
@@ -57,7 +56,18 @@ export function Navigation() {
           stagger: 0.05,
           ease: "power3.out",
         },
-        "<",
+        "-=0.4",
+      )
+      .to(
+        split.words,
+        {
+          yPercent: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.03,
+          ease: "power3.out",
+        },
+        "-=0.4",
       );
   }, [isOpen]);
 
@@ -127,13 +137,13 @@ export function Navigation() {
       </header>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex">
+        <div className="fixed inset-0 z-50 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden">
           <div
             ref={leftPanel}
-            className="flex h-full w-full max-sm:w-full items-start bg-[#131313]/60 backdrop-blur-2xl"
+            className="flex w-full md:h-full items-start bg-[#131313]/60 backdrop-blur-2xl"
             style={{ transform: "translateX(-100%)" }}
           >
-            <div className="w-full  max-sm:pt-16">
+            <div className="w-full pt-16 sm:pt-20 md:pt-0">
               <div ref={leftItems} className="flex flex-col">
                 {links.map((link) => (
                   <TransitionLink
@@ -144,7 +154,7 @@ export function Navigation() {
                     <span className="font-mono text-xs tracking-wider text-[#DC2626]">
                       ({link.num})
                     </span>
-                    <span className="text-xl max-sm:text-lg font-title font-bold tracking-tight text-white transition-all duration-300 sm:text-2xl lg:text-3xl">
+                    <span className="nav-label text-xl max-sm:text-lg font-title font-bold tracking-tight text-white transition-all duration-300 sm:text-2xl lg:text-3xl">
                       {link.label}
                     </span>
                   </TransitionLink>
@@ -155,13 +165,13 @@ export function Navigation() {
 
           <div
             ref={rightPanel}
-            className="relative flex h-full w-full max-sm:hidden items-center justify-center bg-[#090909]"
+            className="relative flex w-full md:h-full items-center justify-center bg-[#090909]"
             style={{ transform: "translateX(100%)" }}
           >
-            {/* close button */}
+            {/* close button — hidden on mobile (header button handles it) */}
             <button
               onClick={() => (isOpen ? close() : setIsOpen(true))}
-              className="absolute top-4 right-14 z-50 cursor-pointer p-3 flex flex-col items-end gap-1.5"
+              className="absolute top-4 right-14 z-50 cursor-pointer p-3 flex-col items-end gap-1.5 hidden md:flex"
               aria-label={isOpen ? "Close menu" : "Open menu"}
             >
               <span
@@ -182,7 +192,7 @@ export function Navigation() {
             </button>
             <div
               ref={rightItems}
-              className="flex flex-col items-center gap-14 max-sm:gap-8 text-center"
+              className="flex flex-col items-center gap-14 max-sm:gap-8 text-center py-10 md:py-0"
             >
               <div>
                 <Image

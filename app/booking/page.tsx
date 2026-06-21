@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle, Send } from "lucide-react";
+import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,6 +31,7 @@ export default function Booking() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
 
@@ -75,6 +77,15 @@ export default function Booking() {
       { y: 40, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
     );
+
+    if (titleRef.current) {
+      const split = new SplitType(titleRef.current, { types: "lines" });
+      gsap.fromTo(
+        split.lines,
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: "power4.out" },
+      );
+    }
 
     ScrollTrigger.create({
       trigger: formRef.current,
@@ -124,7 +135,7 @@ export default function Booking() {
               <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                 Booking
               </p>
-              <h1 className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
+              <h1 ref={titleRef} className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
                 Pesan KALLA
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A1A1AA]">

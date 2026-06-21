@@ -32,6 +32,8 @@ export function UpcomingEvents() {
   const headerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const taglineRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     const mm = gsap.matchMedia();
@@ -63,6 +65,73 @@ export function UpcomingEvents() {
         "-=0.4",
       );
     });
+
+    mm.add("(max-width: 767px)", () => {
+      gsap.fromTo(
+        headerRef.current,
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+
+      gsap.fromTo(
+        cardsRef.current ? Array.from(cardsRef.current.children) : [],
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.12,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: cardsRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+    });
+
+    gsap.fromTo(
+      stageRef.current,
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: stageRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      },
+    );
+
+    gsap.fromTo(
+      taglineRef.current,
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: taglineRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      },
+    );
   });
 
   return (
@@ -123,7 +192,7 @@ export function UpcomingEvents() {
           </TransitionLink>
         </div>
       </div>
-      <div className="w-full py-8 flex items-center justify-center">
+      <div ref={stageRef} className="w-full py-8 flex items-center justify-center">
         <Image
           src="/images/stage-plot.jpeg"
           alt="stageplot"
@@ -134,7 +203,7 @@ export function UpcomingEvents() {
           className="w-full object-contain"
         />
       </div>
-      <div className="w-full pb-8 flex items-center justify-center">
+      <div ref={taglineRef} className="w-full pb-8 flex items-center justify-center">
         <Image
           src="/images/TAGLINE.png"
           alt="stageplot"

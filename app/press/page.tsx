@@ -9,6 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Download, Mail, X } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,9 +28,12 @@ export default function Press() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const pressRef = useRef<HTMLDivElement>(null);
+  const pressGridRef = useRef<HTMLDivElement>(null);
   const techRef = useRef<HTMLDivElement>(null);
+  const techGridRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => { document.title = "Press Kit — KALLA"; }, []);
@@ -60,6 +64,15 @@ export default function Press() {
       { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
     );
 
+    if (titleRef.current) {
+      const split = new SplitType(titleRef.current, { types: "lines" });
+      gsap.fromTo(
+        split.lines,
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: "power4.out" },
+      );
+    }
+
     ScrollTrigger.create({
       trigger: pressRef.current,
       start: "top 80%",
@@ -73,6 +86,31 @@ export default function Press() {
       once: true,
     });
 
+    if (pressGridRef.current) {
+      ScrollTrigger.create({
+        trigger: pressGridRef.current,
+        start: "top 80%",
+        onEnter: () => {
+          const els = pressGridRef.current
+            ? Array.from(pressGridRef.current.children)
+            : [];
+          gsap.fromTo(
+            els,
+            { y: 30, opacity: 0, scale: 0.97 },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: 0.6,
+              stagger: 0.06,
+              ease: "power3.out",
+            },
+          );
+        },
+        once: true,
+      });
+    }
+
     ScrollTrigger.create({
       trigger: techRef.current,
       start: "top 80%",
@@ -85,6 +123,31 @@ export default function Press() {
       },
       once: true,
     });
+
+    if (techGridRef.current) {
+      ScrollTrigger.create({
+        trigger: techGridRef.current,
+        start: "top 80%",
+        onEnter: () => {
+          const els = techGridRef.current
+            ? Array.from(techGridRef.current.children)
+            : [];
+          gsap.fromTo(
+            els,
+            { y: 30, opacity: 0, scale: 0.97 },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: 0.6,
+              stagger: 0.06,
+              ease: "power3.out",
+            },
+          );
+        },
+        once: true,
+      });
+    }
 
     ScrollTrigger.create({
       trigger: contactRef.current,
@@ -120,7 +183,7 @@ export default function Press() {
               <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                 Pers & Media
               </p>
-              <h1 className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
+              <h1 ref={titleRef} className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
                 Press Kit
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A1A1AA]">
@@ -162,7 +225,7 @@ export default function Press() {
                     Download PDF
                   </a>
                 </div>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+                <div ref={pressGridRef} className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
                   {pressImages.map((img, i) => (
                     <button
                       key={img.src}
@@ -214,7 +277,7 @@ export default function Press() {
                     Download PDF
                   </a>
                 </div>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+                <div ref={techGridRef} className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
                   {techImages.map((img) => (
                     <button
                       key={img.src}

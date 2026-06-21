@@ -1,12 +1,19 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
+import gsap from "gsap";
 import { animatePageIn } from "@/lib/animations";
 
 export default function Template({ children }: { children: ReactNode }) {
   useEffect(() => {
     const id = requestAnimationFrame(() => animatePageIn());
-    return () => cancelAnimationFrame(id);
+    return () => {
+      cancelAnimationFrame(id);
+      gsap.killTweensOf([
+        document.getElementById("curtain-left"),
+        document.getElementById("curtain-right"),
+      ]);
+    };
   }, []);
 
   return (

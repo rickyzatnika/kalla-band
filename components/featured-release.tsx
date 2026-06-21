@@ -63,6 +63,73 @@ export function FeaturedRelease() {
           "-=0.2",
         );
     });
+
+    mm.add("(max-width: 1023px)", () => {
+      gsap.fromTo(
+        labelRef.current,
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+
+      gsap.fromTo(
+        titleRef.current,
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: section.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+
+      gsap.fromTo(
+        imageWrapRef.current,
+        { scale: 0.95, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: imageWrapRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+
+      gsap.fromTo(
+        listRef.current ? Array.from(listRef.current.children) : [],
+        { y: 15, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: listRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+    });
   });
 
   const items = [
