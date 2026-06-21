@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
@@ -32,6 +32,8 @@ export default function Booking() {
   const headerRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => { document.title = "Booking — KALLA"; }, []);
 
   const {
     register,
@@ -109,7 +111,7 @@ export default function Booking() {
         <section ref={sectionRef} className="relative overflow-hidden px-6 py-32">
           <div ref={bgRef} className="absolute inset-0 w-screen left-1/2 -translate-x-1/2">
             <Image
-              src="/images/cover-album.jpeg"
+              src="/images/hero.jpeg"
               alt=""
               fill
               className="object-cover"
@@ -122,7 +124,7 @@ export default function Booking() {
               <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                 Booking
               </p>
-              <h1 className="mt-4 font-serif text-6xl font-bold tracking-wide sm:text-7xl">
+              <h1 className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
                 Pesan KALLA
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A1A1AA]">

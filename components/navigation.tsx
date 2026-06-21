@@ -144,7 +144,7 @@ export function Navigation() {
                     <span className="font-mono text-xs tracking-wider text-[#DC2626]">
                       ({link.num})
                     </span>
-                    <span className="text-xl max-sm:text-lg font-serif font-bold tracking-tight text-white transition-all duration-300 sm:text-2xl lg:text-3xl">
+                    <span className="text-xl max-sm:text-lg font-title font-bold tracking-tight text-white transition-all duration-300 sm:text-2xl lg:text-3xl">
                       {link.label}
                     </span>
                   </TransitionLink>

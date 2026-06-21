@@ -91,7 +91,7 @@ export function Hero() {
               alt="KALLA Band"
               width={500}
               height={200}
-              className=" object-contain md:object-cover w-50 h-20 md:w-[500px] h-[200px]"
+              className="object-contain w-50 md:w-[500px] h-auto"
               loading="eager"
               priority
             />

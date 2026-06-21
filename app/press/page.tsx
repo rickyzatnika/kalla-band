@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { useGSAP } from "@gsap/react";
@@ -31,6 +31,8 @@ export default function Press() {
   const pressRef = useRef<HTMLDivElement>(null);
   const techRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => { document.title = "Press Kit — KALLA"; }, []);
 
   useGSAP(() => {
     gsap.fromTo(
@@ -105,7 +107,7 @@ export default function Press() {
         <section ref={sectionRef} className="relative overflow-hidden px-6 py-32">
           <div ref={bgRef} className="absolute inset-0 w-screen left-1/2 -translate-x-1/2">
             <Image
-              src="/images/cover-album.jpeg"
+              src="/gallery-2.png"
               alt=""
               fill
               className="object-cover"
@@ -118,7 +120,7 @@ export default function Press() {
               <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                 Pers & Media
               </p>
-              <h1 className="mt-4 font-serif text-6xl font-bold tracking-wide sm:text-7xl">
+              <h1 className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
                 Press Kit
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A1A1AA]">
@@ -132,7 +134,7 @@ export default function Press() {
         <section ref={gridRef} className="border-t border-[rgba(255,255,255,0.06)] px-6 py-32">
           <div className="mx-auto max-w-6xl">
             <div className="mb-20">
-              <h2 className="font-serif text-4xl font-bold tracking-wide sm:text-5xl">
+              <h2 className="font-title text-4xl font-bold tracking-wide sm:text-5xl">
                 Media Kit
               </h2>
               <p className="mt-4 max-w-xl text-base leading-relaxed text-[#A1A1AA]">
@@ -147,7 +149,7 @@ export default function Press() {
                     <span className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                       01
                     </span>
-                    <h3 className="mt-1 font-serif text-2xl font-bold tracking-wide sm:text-3xl">
+                    <h3 className="mt-1 font-title text-2xl font-bold tracking-wide sm:text-3xl">
                       Press Release
                     </h3>
                   </div>
@@ -199,7 +201,7 @@ export default function Press() {
                     <span className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                       02
                     </span>
-                    <h3 className="mt-1 font-serif text-2xl font-bold tracking-wide sm:text-3xl">
+                    <h3 className="mt-1 font-title text-2xl font-bold tracking-wide sm:text-3xl">
                       Technical Riders
                     </h3>
                   </div>
@@ -252,7 +254,7 @@ export default function Press() {
           <div className="mx-auto max-w-3xl text-center">
             <div ref={contactRef}>
               <Mail className="mx-auto h-8 w-8 text-[#DC2626]" />
-              <h2 className="mt-4 font-serif text-4xl font-bold tracking-wide">
+              <h2 className="mt-4 font-title text-4xl font-bold tracking-wide">
                 Pertanyaan Media
               </h2>
               <p className="mt-4 text-[#A1A1AA]">

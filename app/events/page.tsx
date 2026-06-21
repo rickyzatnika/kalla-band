@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
@@ -8,6 +8,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Calendar, MapPin } from "lucide-react";
+import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,7 +35,10 @@ export default function Events() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => { document.title = "Agenda — KALLA"; }, []);
 
   useGSAP(() => {
     gsap.fromTo(
@@ -62,6 +66,15 @@ export default function Events() {
       { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
     );
 
+    if (titleRef.current) {
+      const split = new SplitType(titleRef.current, { types: "lines" });
+      gsap.fromTo(
+        split.lines,
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: "power4.out" },
+      );
+    }
+
     ScrollTrigger.create({
       trigger: listRef.current,
       start: "top 80%",
@@ -84,7 +97,7 @@ export default function Events() {
         <section ref={sectionRef} className="relative overflow-hidden px-6 py-32">
           <div ref={bgRef} className="absolute inset-0 w-screen left-1/2 -translate-x-1/2">
             <Image
-              src="/images/cover-album.jpeg"
+              src="/gallery-1.png"
               alt=""
               fill
               className="object-cover"
@@ -97,7 +110,7 @@ export default function Events() {
               <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                 Pengalaman Live
               </p>
-              <h1 className="mt-4 font-serif text-6xl font-bold tracking-wide sm:text-7xl">
+              <h1 ref={titleRef} className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
                 Agenda & Tur
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A1A1AA]">
@@ -109,7 +122,7 @@ export default function Events() {
 
         <section className="border-t border-[rgba(255,255,255,0.06)] px-6 py-32">
           <div className="mx-auto max-w-5xl">
-            <h2 className="mb-16 font-serif text-4xl font-bold tracking-wide">
+            <h2 className="mb-16 font-title text-4xl font-bold tracking-wide">
               Mendatang
             </h2>
 
@@ -122,7 +135,7 @@ export default function Events() {
                   <div className="mb-3 inline-block rounded-full border border-[rgba(255,255,255,0.08)] px-4 py-1 text-xs font-medium text-[#DC2626]">
                     {event.type}
                   </div>
-                  <h3 className="font-serif text-2xl font-bold tracking-wide">
+                  <h3 className="font-title text-2xl font-bold tracking-wide">
                     {event.title}
                   </h3>
                   <div className="mt-6 grid gap-4 sm:grid-cols-2">

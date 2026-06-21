@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
@@ -9,6 +9,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,8 +39,11 @@ export default function Gallery() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const filterRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => { document.title = "Galeri — KALLA"; }, []);
 
   const filtered =
     activeCat === "Semua"
@@ -71,6 +75,15 @@ export default function Gallery() {
       { y: 40, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
     );
+
+    if (titleRef.current) {
+      const split = new SplitType(titleRef.current, { types: "lines" });
+      gsap.fromTo(
+        split.lines,
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: "power4.out" },
+      );
+    }
 
     const filterEls = filterRef.current
       ? Array.from(filterRef.current.children)
@@ -129,7 +142,7 @@ export default function Gallery() {
               <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                 Visual
               </p>
-              <h1 className="mt-4 font-serif text-6xl font-bold tracking-wide sm:text-7xl">
+              <h1 ref={titleRef} className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
                 Galeri
               </h1>
             </div>
@@ -168,7 +181,7 @@ export default function Gallery() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   <div className="absolute inset-x-0 bottom-0 p-6 opacity-0 transition-all duration-500 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0">
-                    <p className="font-serif text-lg font-bold">{item.title}</p>
+                    <p className="font-title text-lg font-bold">{item.title}</p>
                     <p className="mt-1 text-xs text-[#DC2626]">
                       {item.category}
                     </p>

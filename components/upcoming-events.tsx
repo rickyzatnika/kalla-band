@@ -76,7 +76,7 @@ export function UpcomingEvents() {
             <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
               Jadwal
             </p>
-            <h2 className="mt-4 font-serif text-5xl font-bold tracking-wide sm:text-6xl">
+            <h2 className="mt-4 font-title text-5xl font-bold tracking-wide sm:text-6xl">
               Agenda Mendatang
             </h2>
           </div>
@@ -97,7 +97,7 @@ export function UpcomingEvents() {
               <div className="mb-1 inline-block rounded-full border border-[rgba(255,255,255,0.08)] px-4 py-1.5 text-xs font-medium text-[#DC2626]">
                 {event.type}
               </div>
-              <h3 className="mt-4 font-serif text-2xl font-bold tracking-wide">
+              <h3 className="mt-4 font-title text-2xl font-bold tracking-wide">
                 {event.title}
               </h3>
               <div className="mt-6 space-y-3">
@@ -142,7 +142,7 @@ export function UpcomingEvents() {
           height={250}
           priority
           loading="eager"
-          className="w-[500px] h-[250px] object-contain"
+          className="w-full max-w-[500px] h-auto object-contain"
         />
       </div>
     </section>

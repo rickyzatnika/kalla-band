@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
@@ -8,6 +8,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Music2, ExternalLink } from "lucide-react";
+import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,8 +26,11 @@ export default function Music() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const trackListRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => { document.title = "Musik — KALLA"; }, []);
 
   useGSAP(() => {
     gsap.fromTo(
@@ -53,6 +57,15 @@ export default function Music() {
       { y: 40, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
     );
+
+    if (titleRef.current) {
+      const split = new SplitType(titleRef.current, { types: "lines" });
+      gsap.fromTo(
+        split.lines,
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: "power4.out" },
+      );
+    }
 
     ScrollTrigger.create({
       trigger: trackListRef.current,
@@ -110,7 +123,7 @@ export default function Music() {
               <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                 Diskografi
               </p>
-              <h1 className="mt-4 font-serif text-6xl font-bold tracking-wide sm:text-7xl">
+              <h1 ref={titleRef} className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
                 Musik
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A1A1AA]">
@@ -124,7 +137,7 @@ export default function Music() {
 
         <section className="border-t border-[rgba(255,255,255,0.06)] px-6 py-32">
           <div className="mx-auto max-w-5xl">
-            <h2 className="mb-16 font-serif text-4xl font-bold tracking-wide">
+            <h2 className="mb-16 font-title text-4xl font-bold tracking-wide">
               Trek Teratas
             </h2>
 
@@ -155,7 +168,7 @@ export default function Music() {
               className="mt-16 rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-10 text-center"
             >
               <Music2 className="mx-auto h-10 w-10 text-[#DC2626]" />
-              <h3 className="mt-4 font-serif text-3xl font-bold tracking-wide">
+              <h3 className="mt-4 font-title text-3xl font-bold tracking-wide">
                 Streaming di Spotify
               </h3>
               <p className="mt-3 text-[#A1A1AA]">

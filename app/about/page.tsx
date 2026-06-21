@@ -56,6 +56,8 @@ export default function About() {
   const itemsRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => { document.title = "Tentang — KALLA"; }, []);
+
   useGSAP(() => {
     gsap.fromTo(
       bgRef.current,
@@ -132,13 +134,13 @@ export default function About() {
             ref={bgRef}
             className="absolute inset-0 w-screen left-1/2 -translate-x-1/2"
           >
-            <Image
-              src="/images/cover-album.jpeg"
-              alt=""
-              fill
-              className="object-cover"
-              priority
-            />
+              <Image
+                  src="/images/hero.jpeg"
+                  alt=""
+                  fill
+                  className="object-cover"
+                  priority
+                />
             <div className="absolute inset-0 bg-gradient-to-r from-[#090909] via-[#090909]/70 to-transparent" />
           </div>
           <div className="relative z-10 mx-auto max-w-5xl">
@@ -148,7 +150,7 @@ export default function About() {
               </p>
               <h1
                 ref={heroTitle}
-                className="mt-4 font-serif text-6xl font-bold tracking-wide sm:text-7xl"
+                className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl"
               >
                 Cerita KALLA
               </h1>
@@ -170,7 +172,7 @@ export default function About() {
               <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                 Kolektif
               </p>
-              <h2 className="mt-4 font-serif text-5xl font-bold tracking-wide">
+              <h2 className="mt-4 font-title text-5xl font-bold tracking-wide">
                 Personil
               </h2>
             </div>
@@ -204,13 +206,13 @@ export default function About() {
                         <span className="font-mono text-7xl font-bold text-[#DC2626]/10">
                           {String(i + 1).padStart(2, "0")}
                         </span>
-                        <h3 className="mt-2 font-serif text-4xl font-bold tracking-wide">
+                        <h3 className="mt-2 font-title text-4xl font-bold tracking-wide">
                           {member.name}
                         </h3>
                         <p className="mt-2 font-medium text-[#DC2626]">
                           {member.role}
                         </p>
-                        <p className="hidden md:block mt-4 text-lg leading-relaxed text-[#A1A1AA]">
+                        <p className="hidden mt-4 text-sm leading-relaxed text-[#A1A1AA] md:text-lg md:max-w-lg md:block">
                           {member.bio}
                         </p>
                       </div>
@@ -225,7 +227,7 @@ export default function About() {
         <section className="border-t border-[rgba(255,255,255,0.06)] px-6 py-32">
           <div className="mx-auto max-w-3xl text-center">
             <div ref={quoteRef}>
-              <p className="font-serif text-2xl italic leading-relaxed text-[#A1A1AA]">
+              <p className="font-title text-2xl italic leading-relaxed text-[#A1A1AA]">
                 &ldquo;KALLA bukan sekadar band, tetapi ruang untuk menyuarakan
                 rasa-rasa yang sering kali hanya bisa dipendam.&rdquo;
               </p>

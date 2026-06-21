@@ -89,7 +89,7 @@ export function FeaturedRelease() {
           </p>
           <h2
             ref={titleRef}
-            className="mt-4 font-serif text-5xl font-bold tracking-wide sm:text-6xl"
+            className="mt-4 font-title text-5xl font-bold tracking-wide sm:text-6xl"
           >
             Dengarkan KALLA
           </h2>
@@ -117,7 +117,7 @@ export function FeaturedRelease() {
           </div>
           <div>
             <div>
-              <p className="font-serif text-2xl font-bold tracking-wide">
+              <p className="font-title text-2xl font-bold tracking-wide">
                 TENTANG MIMPI YANG BELUM USAI
               </p>
               <p className="mt-4 text-lg leading-relaxed text-[#A1A1AA]">

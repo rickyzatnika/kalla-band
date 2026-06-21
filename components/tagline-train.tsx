@@ -41,7 +41,7 @@ export function TaglineTrain() {
         {`
           .marquee-track {
             white-space: nowrap;
-            animation: marquee 24s linear infinite;
+            animation: marquee 8s linear infinite;
             will-change: transform;
           }
 

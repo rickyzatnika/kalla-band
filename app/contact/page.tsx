@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
@@ -29,6 +29,8 @@ export default function Contact() {
   const headerRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => { document.title = "Kontak — KALLA"; }, []);
 
   const {
     register,
@@ -106,7 +108,7 @@ export default function Contact() {
         <section ref={sectionRef} className="relative overflow-hidden px-6 py-32">
           <div ref={bgRef} className="absolute inset-0 w-screen left-1/2 -translate-x-1/2">
             <Image
-              src="/images/cover-album.jpeg"
+              src="/gallery-3.png"
               alt=""
               fill
               className="object-cover"
@@ -119,7 +121,7 @@ export default function Contact() {
               <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] uppercase">
                 Hubungi Kami
               </p>
-              <h1 className="mt-4 font-serif text-6xl font-bold tracking-wide sm:text-7xl">
+              <h1 className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
                 Kontak
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A1A1AA]">
@@ -165,7 +167,7 @@ export default function Contact() {
               </div>
 
               <div ref={formRef} className="lg:col-span-3">
-                <h2 className="mb-8 font-serif text-3xl font-bold tracking-wide">
+                <h2 className="mb-8 font-title text-3xl font-bold tracking-wide">
                   Kirim Pesan
                 </h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
