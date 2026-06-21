@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Poppins } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import "./globals.css";
 
@@ -15,8 +16,19 @@ const cinzel = localFont({
       weight: "700",
       style: "normal",
     },
+    {
+      path: "../public/fonts/CinzelDecorative-Black.ttf",
+      weight: "900",
+      style: "normal",
+    },
   ],
   variable: "--font-cinzel",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
@@ -48,7 +60,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className="dark">
-      <body className={`${cinzel.variable}  antialiased`}>
+      <body className={`${cinzel.variable} ${poppins.variable} antialiased`}>
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

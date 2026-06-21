@@ -7,6 +7,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-sans: var(--font-poppins);
+  --font-title: var(--font-cinzel);
   --color-background: #090909;
   --color-foreground: #FFFFFF;
   --color-surface: #181818;
