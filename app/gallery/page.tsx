@@ -42,8 +42,11 @@ export default function Gallery() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const filterRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const initialAnimated = useRef(false);
 
-  useEffect(() => { document.title = "Galeri — KALLA"; }, []);
+  useEffect(() => {
+    document.title = "Galeri — KALLA";
+  }, []);
 
   const filtered =
     activeCat === "Semua"
@@ -98,51 +101,69 @@ export default function Gallery() {
       trigger: gridRef.current,
       start: "top 80%",
       onEnter: () => {
-        const els = gridRef.current ? Array.from(gridRef.current.children) : [];
+        const els = gridRef.current
+          ? Array.from(gridRef.current.children)
+          : [];
         gsap.fromTo(
           els,
-          { y: 60, opacity: 0, scale: 0.95 },
+          { y: 60, opacity: 0, scale: 0.9 },
           {
             y: 0,
             opacity: 1,
             scale: 1,
             duration: 0.8,
-            stagger: 0.1,
+            stagger: 0.3,
             ease: "power3.out",
           },
         );
+        initialAnimated.current = true;
       },
       once: true,
     });
   });
 
+  useGSAP(() => {
+    if (!initialAnimated.current) return;
+    const els = gridRef.current ? Array.from(gridRef.current.children) : [];
+    if (els.length === 0) return;
+    gsap.fromTo(
+      els,
+      { y: 40, opacity: 0, scale: 0.95 },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power3.out",
+      },
+    );
+  }, { dependencies: [filtered] });
+
   return (
-    <>
+    <section>
       <Navigation />
-      <main className="min-h-screen bg-[#090909] pt-20">
-        <section
-          ref={sectionRef}
-          className="relative overflow-hidden px-6 py-32"
-        >
-          <div
-            ref={bgRef}
-            className="absolute opacity-50 inset-0"
-          >
-            <Image
-              src="/images/cover-album.jpeg"
-              alt=""
-              fill
-              className="object-cover blur-[5px] "
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#090909] via-[#090909]/70 to-transparent" />
-          </div>
+      <div ref={bgRef} className="fixed left-0 top-0 opacity-50 inset-0">
+        <Image
+          src="/images/hero.jpeg"
+          alt=""
+          fill
+          className="object-cover blur-[5px] "
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#090909] via-[#090909]/70 to-transparent" />
+      </div>
+      <main className="min-h-screen bg-[#090909] pt-4 md:pt-14 ">
+        <div ref={sectionRef} className="relative overflow-hidden px-6 py-32">
           <div className="relative z-10 mx-auto max-w-6xl">
             <div ref={headerRef}>
               <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
                 Visual
               </p>
-              <h1 ref={titleRef} className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
+              <h1
+                ref={titleRef}
+                className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl"
+              >
                 Galeri
               </h1>
             </div>
@@ -165,18 +186,19 @@ export default function Gallery() {
 
             <div
               ref={gridRef}
-              className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              className="mt-24 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
             >
               {filtered.map((item) => (
                 <div
                   key={item.id}
-                  className="group relative aspect-[4/5] cursor-pointer overflow-hidden rounded-3xl bg-[#111111]"
+                  className="group relative aspect-4/5 cursor-pointer overflow-hidden rounded-3xl bg-[#111111]"
                   onClick={() => setSelected(item.image)}
                 >
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
+                    priority
                     className="object-cover transition-all duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -190,7 +212,7 @@ export default function Gallery() {
               ))}
             </div>
           </div>
-        </section>
+        </div>
 
         <AnimatePresence>
           {selected && (
@@ -206,7 +228,7 @@ export default function Gallery() {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 transition={{ duration: 0.4 }}
-                className="relative max-h-[90vh] max-w-5xl"
+                className="relative aspect-4/5 max-h-[80vh] max-w-5xl"
                 onClick={(e) => e.stopPropagation()}
               >
                 <Image
@@ -214,11 +236,11 @@ export default function Gallery() {
                   alt="Gallery"
                   width={1400}
                   height={1000}
-                  className="h-auto w-full rounded-2xl object-contain"
+                  className="h-auto w-full  rounded-xl object-contain"
                 />
                 <button
                   onClick={() => setSelected(null)}
-                  className="absolute -top-14 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-[#DC2626] text-white transition-all hover:bg-[#EF4444]"
+                  className="absolute -bottom-14 left-1/2 -translate-x-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-[#DC2626] text-white transition-all hover:bg-[#EF4444]"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -229,6 +251,6 @@ export default function Gallery() {
 
         <Footer />
       </main>
-    </>
+    </section>
   );
 }

@@ -38,7 +38,9 @@ export default function Events() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { document.title = "Agenda — KALLA"; }, []);
+  useEffect(() => {
+    document.title = "Agenda — KALLA";
+  }, []);
 
   useGSAP(() => {
     gsap.fromTo(
@@ -63,7 +65,7 @@ export default function Events() {
     gsap.fromTo(
       headerRef.current,
       { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
+      { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
     );
 
     if (titleRef.current) {
@@ -83,7 +85,13 @@ export default function Events() {
         gsap.fromTo(
           els,
           { y: 50, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out" }
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+          },
         );
       },
       once: true,
@@ -94,13 +102,16 @@ export default function Events() {
     <>
       <Navigation />
       <main className="min-h-screen bg-[#090909] pt-20">
-        <section ref={sectionRef} className="relative overflow-hidden px-6 py-32">
+        <section
+          ref={sectionRef}
+          className="relative overflow-hidden px-6 py-32"
+        >
           <div ref={bgRef} className="absolute inset-0">
             <Image
-              src="/gallery-1.png"
+              src="/images/ashid.jpeg"
               alt=""
               fill
-              className="object-cover"
+              className="object-cover object-top-center"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#090909] via-[#090909]/70 to-transparent" />
@@ -110,11 +121,15 @@ export default function Events() {
               <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
                 Pengalaman Live
               </p>
-              <h1 ref={titleRef} className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
+              <h1
+                ref={titleRef}
+                className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl"
+              >
                 Agenda & Tur
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A1A1AA]">
-                Saksikan KALLA secara langsung dan rasakan pengalaman emotional alternative pop yang intim dan penuh rasa.
+                Saksikan KALLA secara langsung dan rasakan pengalaman emotional
+                alternative pop yang intim dan penuh rasa.
               </p>
             </div>
           </div>
@@ -143,14 +158,18 @@ export default function Events() {
                       <Calendar className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#DC2626]" />
                       <div>
                         <p className="text-sm text-[#A1A1AA]">{event.date}</p>
-                        <p className="text-xs text-[#A1A1AA]/60">{event.time}</p>
+                        <p className="text-xs text-[#A1A1AA]/60">
+                          {event.time}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#DC2626]" />
                       <div>
                         <p className="text-sm text-[#A1A1AA]">{event.venue}</p>
-                        <p className="text-xs text-[#A1A1AA]/60">{event.city}</p>
+                        <p className="text-xs text-[#A1A1AA]/60">
+                          {event.city}
+                        </p>
                       </div>
                     </div>
                   </div>

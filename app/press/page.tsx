@@ -36,7 +36,9 @@ export default function Press() {
   const techGridRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { document.title = "Press Kit — KALLA"; }, []);
+  useEffect(() => {
+    document.title = "Press Kit — KALLA";
+  }, []);
 
   useGSAP(() => {
     gsap.fromTo(
@@ -167,10 +169,13 @@ export default function Press() {
     <>
       <Navigation />
       <main className="min-h-screen bg-[#090909] pt-20">
-        <section ref={sectionRef} className="relative overflow-hidden px-6 py-32">
+        <section
+          ref={sectionRef}
+          className="relative overflow-hidden px-6 py-32"
+        >
           <div ref={bgRef} className="absolute inset-0">
             <Image
-              src="/gallery-2.png"
+              src="/images/biden.jpeg"
               alt=""
               fill
               className="object-cover"
@@ -183,7 +188,10 @@ export default function Press() {
               <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
                 Pers & Media
               </p>
-              <h1 ref={titleRef} className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
+              <h1
+                ref={titleRef}
+                className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl"
+              >
                 Press Kit
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A1A1AA]">
@@ -194,14 +202,18 @@ export default function Press() {
           </div>
         </section>
 
-        <section ref={gridRef} className="border-t border-[rgba(255,255,255,0.06)] px-6 py-32">
+        <section
+          ref={gridRef}
+          className="border-t border-[rgba(255,255,255,0.06)] px-6 py-32"
+        >
           <div className="mx-auto max-w-6xl">
             <div className="mb-20">
               <h2 className="font-title text-4xl font-bold tracking-wide sm:text-5xl">
                 Media Kit
               </h2>
               <p className="mt-4 max-w-xl text-base leading-relaxed text-[#A1A1AA]">
-                Unduh aset resmi KALLA untuk keperluan publikasi, media, dan acara.
+                Unduh aset resmi KALLA untuk keperluan publikasi, media, dan
+                acara.
               </p>
             </div>
 
@@ -225,7 +237,10 @@ export default function Press() {
                     Download PDF
                   </a>
                 </div>
-                <div ref={pressGridRef} className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+                <div
+                  ref={pressGridRef}
+                  className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4"
+                >
                   {pressImages.map((img, i) => (
                     <button
                       key={img.src}
@@ -243,7 +258,9 @@ export default function Press() {
                       </div>
                       <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                       <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                        <p className="text-xs text-white/80">Klik untuk perbesar</p>
+                        <p className="text-xs text-white/80">
+                          Klik untuk perbesar
+                        </p>
                       </div>
                     </button>
                   ))}
@@ -277,7 +294,10 @@ export default function Press() {
                     Download PDF
                   </a>
                 </div>
-                <div ref={techGridRef} className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+                <div
+                  ref={techGridRef}
+                  className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5"
+                >
                   {techImages.map((img) => (
                     <button
                       key={img.src}
@@ -295,7 +315,9 @@ export default function Press() {
                       </div>
                       <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                       <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                        <p className="text-xs text-white/80">Klik untuk perbesar</p>
+                        <p className="text-xs text-white/80">
+                          Klik untuk perbesar
+                        </p>
                       </div>
                     </button>
                   ))}

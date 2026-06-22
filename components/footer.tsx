@@ -35,7 +35,11 @@ export function Footer() {
   });
 
   return (
-    <footer ref={footerRef} className=" w-full px-6 py-20 bg-[url('/images/bg.jpg')] bg-contain ">
+    <footer
+      ref={footerRef}
+      className="relative w-full px-6 py-20 bg-[url('/images/bg.jpg')] bg-contain "
+    >
+      <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-[#090909]" />
       <div ref={contentRef} className="mx-auto max-w-7xl">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">

@@ -12,6 +12,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail, MapPin, Send } from "lucide-react";
 import SplitType from "split-type";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,7 +33,32 @@ export default function Contact() {
   const infoRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { document.title = "Kontak — KALLA"; }, []);
+  const sosmed = [
+    {
+      id: "1",
+      title: "Instagram",
+      href: "https://www.instagram.com/kallaband",
+    },
+    {
+      id: "2",
+      title: "Tiktok",
+      href: "https://www.tiktok.com/kallaband",
+    },
+    {
+      id: "3",
+      title: "Youtube",
+      href: "https://www.youtube.com/kallaband",
+    },
+    {
+      id: "4",
+      title: "Spotify",
+      href: "https://www.spotify.com/kallaband",
+    },
+  ];
+
+  useEffect(() => {
+    document.title = "Kontak — KALLA";
+  }, []);
 
   const {
     register,
@@ -72,7 +98,7 @@ export default function Contact() {
     gsap.fromTo(
       headerRef.current,
       { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
+      { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
     );
 
     if (titleRef.current) {
@@ -92,7 +118,7 @@ export default function Contact() {
         gsap.fromTo(
           els,
           { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" }
+          { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" },
         );
       },
       once: true,
@@ -105,7 +131,7 @@ export default function Contact() {
         gsap.fromTo(
           formRef.current,
           { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+          { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
         );
       },
       once: true,
@@ -116,13 +142,16 @@ export default function Contact() {
     <>
       <Navigation />
       <main className="min-h-screen bg-[#090909] pt-20">
-        <section ref={sectionRef} className="relative overflow-hidden px-6 py-32">
-          <div ref={bgRef} className="absolute inset-0">
+        <section
+          ref={sectionRef}
+          className="relative overflow-hidden px-6 py-32"
+        >
+          <div ref={bgRef} className="absolute inset-0 -top-12 md:-top-28">
             <Image
-              src="/gallery-3.png"
+              src="/images/dyz.png"
               alt=""
               fill
-              className="object-cover"
+              className="object-cover object-top-right"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#090909] via-[#090909]/70 to-transparent" />
@@ -132,11 +161,15 @@ export default function Contact() {
               <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
                 Hubungi Kami
               </p>
-              <h1 ref={titleRef} className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl">
+              <h1
+                ref={titleRef}
+                className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl"
+              >
                 Kontak
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A1A1AA]">
-                Punya pertanyaan atau ingin berdiskusi? Kami akan dengan senang hati mendengar dari Anda.
+                Punya pertanyaan atau ingin berdiskusi? Kami akan dengan senang
+                hati mendengar dari Anda.
               </p>
             </div>
           </div>
@@ -150,10 +183,10 @@ export default function Contact() {
                   <Mail className="h-6 w-6 text-[#DC2626]" />
                   <p className="mt-4 text-sm text-[#A1A1AA]">Email</p>
                   <a
-                    href="mailto:hello@kalla.id"
+                    href="mailto:kallabandofficial11@gmail.com"
                     className="mt-1 block font-medium transition-colors hover:text-[#DC2626]"
                   >
-                    hello@kalla.id
+                    kallabandofficial11@gmail.com
                   </a>
                 </div>
                 <div className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8">
@@ -162,16 +195,17 @@ export default function Contact() {
                   <p className="mt-1 font-medium">Bandung, Indonesia</p>
                 </div>
                 <div className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8">
-                  <p className="text-sm text-[#A1A1AA]">Ikuti Kami</p>
+                  <p className="text-sm text-[#A1A1AA]">Ikuti Kami :</p>
                   <div className="mt-4 flex gap-4">
-                    {["Instagram", "YouTube", "Spotify"].map((s) => (
-                      <a
-                        key={s}
-                        href="#"
-                        className="text-sm text-[#A1A1AA] underline underline-offset-4 transition-colors hover:text-white"
+                    {sosmed.map((s) => (
+                      <Link
+                        key={s.id}
+                        target="_blank"
+                        href={s.href}
+                        className="text-sm text-[#A1A1AA]  transition-colors hover:text-white"
                       >
-                        {s}
-                      </a>
+                        {s.title}
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -189,7 +223,11 @@ export default function Contact() {
                         placeholder="Nama Anda"
                         className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                       />
-                      {errors.name && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.name.message}</p>}
+                      {errors.name && (
+                        <p className="mt-1.5 text-xs text-[#EF4444]">
+                          {errors.name.message}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <input
@@ -197,7 +235,11 @@ export default function Contact() {
                         placeholder="Email Anda"
                         className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                       />
-                      {errors.email && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.email.message}</p>}
+                      {errors.email && (
+                        <p className="mt-1.5 text-xs text-[#EF4444]">
+                          {errors.email.message}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div>
@@ -206,7 +248,11 @@ export default function Contact() {
                       placeholder="Subjek"
                       className="w-full rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                     />
-                    {errors.subject && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.subject.message}</p>}
+                    {errors.subject && (
+                      <p className="mt-1.5 text-xs text-[#EF4444]">
+                        {errors.subject.message}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <textarea
@@ -215,7 +261,11 @@ export default function Contact() {
                       placeholder="Pesan Anda..."
                       className="w-full resize-none rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#111111] px-4 py-3.5 text-sm text-white placeholder-[#A1A1AA]/50 outline-none transition-all duration-300 focus:border-[#DC2626]"
                     />
-                    {errors.message && <p className="mt-1.5 text-xs text-[#EF4444]">{errors.message.message}</p>}
+                    {errors.message && (
+                      <p className="mt-1.5 text-xs text-[#EF4444]">
+                        {errors.message.message}
+                      </p>
+                    )}
                   </div>
                   <button
                     type="submit"
