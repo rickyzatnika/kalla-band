@@ -13,7 +13,7 @@ export default function Home() {
       <Hero />
       <TaglineTrain />
       <FeaturedRelease />
-      <UpcomingEvents />
+      {/* <UpcomingEvents /> */}
       <ComingSoonPopup />
       <Footer />
     </>

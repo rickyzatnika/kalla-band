@@ -207,7 +207,7 @@ export default function Press() {
           className="border-t border-[rgba(255,255,255,0.06)] px-6 py-32"
         >
           <div className="mx-auto max-w-6xl">
-            <div className="mb-20">
+            {/* <div className="mb-20">
               <h2 className="font-title text-4xl font-bold tracking-wide sm:text-5xl">
                 Media Kit
               </h2>
@@ -215,10 +215,10 @@ export default function Press() {
                 Unduh aset resmi KALLA untuk keperluan publikasi, media, dan
                 acara.
               </p>
-            </div>
+            </div> */}
 
             <div className="space-y-24">
-              <div ref={pressRef}>
+              {/* <div ref={pressRef}>
                 <div className="mb-8 flex items-end justify-between border-b border-[rgba(255,255,255,0.06)] pb-4">
                   <div>
                     <span className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
@@ -273,7 +273,7 @@ export default function Press() {
                   <Download className="h-4 w-4" />
                   Download PDF
                 </a>
-              </div>
+              </div> */}
 
               <div ref={techRef}>
                 <div className="mb-8 flex items-end justify-between border-b border-[rgba(255,255,255,0.06)] pb-4">

@@ -274,7 +274,7 @@ export function TrackDetail({ track }: { track: Track }) {
                 </div>
                 <p className="mt-4 flex items-center justify-center gap-2 text-center text-xs text-[#A1A1AA]">
                   <Music2 className="h-3.5 w-3.5 text-[#DC2626]" />
-                  {track.title} &mdash;
+                  {track.title}
                 </p>
               </div>
             </section>
