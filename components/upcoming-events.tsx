@@ -139,7 +139,7 @@ export function UpcomingEvents() {
       ref={section}
       className="border-t border-[rgba(255,255,255,0.06)] px-6 pt-32"
     >
-      <div className="mx-auto max-w-7xl">
+      {/* <div className="mx-auto max-w-7xl">
         <div ref={headerRef} className="mb-16 flex items-end justify-between">
           <div>
             <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
@@ -191,7 +191,7 @@ export function UpcomingEvents() {
             Semua Agenda <ArrowRight className="h-4 w-4" />
           </TransitionLink>
         </div>
-      </div>
+      </div> */}
       <div ref={stageRef} className="w-full py-8 flex items-center justify-center">
         <Image
           src="/images/stage-plot.jpeg"
