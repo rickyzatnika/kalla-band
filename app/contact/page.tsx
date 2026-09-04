@@ -10,7 +10,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Mail, MapPin, Send } from "lucide-react";
+import { Mail, MapPin, Phone, Send } from "lucide-react";
 import SplitType from "split-type";
 import Link from "next/link";
 
@@ -37,23 +37,20 @@ export default function Contact() {
     {
       id: "1",
       title: "Instagram",
-      href: "https://www.instagram.com/kallaband",
+      href: "https://www.instagram.com/kallaband.official/",
     },
     {
       id: "2",
-      title: "Tiktok",
-      href: "https://www.tiktok.com/kallaband",
+      title: "Youtube",
+      href: "https://www.youtube.com/@kallaband_official",
     },
     {
       id: "3",
-      title: "Youtube",
-      href: "https://www.youtube.com/kallaband",
+      title: "Tiktok",
+      href: "https://www.tiktok.com/@kallabandofficial?is_from_webapp=1&sender_device=pc",
     },
-    {
-      id: "4",
-      title: "Spotify",
-      href: "https://www.spotify.com/kallaband",
-    },
+   
+    
   ];
 
   useEffect(() => {
@@ -182,19 +179,24 @@ export default function Contact() {
                 <div className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8">
                   <Mail className="h-6 w-6 text-[#DC2626]" />
                   <p className="mt-4 text-sm text-[#A1A1AA]">Email</p>
-                  <a
-                    href="mailto:kallabandofficial11@gmail.com"
+                  <p
+                   
                     className="mt-1 block font-medium transition-colors hover:text-[#DC2626]"
                   >
                     kallabandofficial11@gmail.com
-                  </a>
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8">
+                  <Phone className="h-6 w-6 text-[#DC2626]" />
+                  <p className="mt-4 text-sm text-[#A1A1AA]">Business Inquiries</p>
+                  <p className="mt-1 font-medium">Artist Management of KALLA <br /> +62 858-2000-1673 (Razka)</p>
                 </div>
                 <div className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8">
                   <MapPin className="h-6 w-6 text-[#DC2626]" />
                   <p className="mt-4 text-sm text-[#A1A1AA]">Lokasi</p>
                   <p className="mt-1 font-medium">Bandung, Indonesia</p>
                 </div>
-                <div className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8">
+                {/* <div className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-8">
                   <p className="text-sm text-[#A1A1AA]">Ikuti Kami :</p>
                   <div className="mt-4 flex gap-4">
                     {sosmed.map((s) => (
@@ -208,7 +210,7 @@ export default function Contact() {
                       </Link>
                     ))}
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div ref={formRef} className="lg:col-span-3">

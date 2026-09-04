@@ -228,11 +228,11 @@ export default function About() {
           <div className="mx-auto max-w-3xl text-center">
             <div ref={quoteRef}>
               <p className="font-title text-2xl italic leading-relaxed text-[#A1A1AA]">
-                &ldquo;KALLA bukan sekadar band, tetapi ruang untuk menyuarakan
+                &ldquo;Kalla bukan sekedar band, tetapi ruang untuk menyuarakan
                 rasa-rasa yang sering kali hanya bisa dipendam.&rdquo;
               </p>
               <p className="mt-6 text-sm text-[#DC2626]">
-                — Karena bagi KALLA, beberapa rasa mungkin tidak pernah
+                — Karena bagi Kalla, beberapa rasa mungkin tidak pernah
                 benar-benar hilang. Mereka hanya tinggal di satu
                 &ldquo;kala.&rdquo;
               </p>

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Mail, ExternalLink, Music2 } from "lucide-react";
+import { Mail, ExternalLink, Music2, Phone } from "lucide-react";
 import { TransitionLink } from "@/components/transition-link";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
@@ -83,43 +83,58 @@ export function Footer() {
 
           <div>
             <p className="mb-4 text-xs font-medium tracking-[0.2em] text-[#DC2626] capitalize">
-              Terhubung
+              Kontak
             </p>
             <ul className="space-y-3">
               <li>
-                <a
-                  href="mailto:hello@kalla.id"
+                <p
+                  
                   className="flex items-center gap-2 text-sm text-[#A1A1AA] transition-colors duration-300 hover:text-white"
                 >
-                  <Mail className="h-4 w-4" />
-                  hello@kalla.id
-                </a>
+          
+                  kallabandofficial11@gmail.com
+                </p>
               </li>
               <li>
                 <a
                   href="#"
                   className="flex items-center gap-2 text-sm text-[#A1A1AA] transition-colors duration-300 hover:text-white"
                 >
-                  <ExternalLink className="h-4 w-4" />
-                  @kalla.band
+           
+                  Artist Management of KALLA  <br/> +62 858-2000-1673 (Razka)
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/kallaband.official/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm text-[#A1A1AA] transition-colors duration-300 hover:text-white"
                 >
-                  <ExternalLink className="h-4 w-4" />
-                  KALLA Official
+                 
+                  Instagram
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://www.youtube.com/@kallaband_official"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm text-[#A1A1AA] transition-colors duration-300 hover:text-white"
                 >
-                  <Music2 className="h-4 w-4" />
-                  Spotify
+            
+                  Youtube
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.tiktok.com/@kallabandofficial?is_from_webapp=1&sender_device=pc"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-[#A1A1AA] transition-colors duration-300 hover:text-white"
+                >
+
+                  Tiktok
                 </a>
               </li>
             </ul>

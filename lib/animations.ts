@@ -8,6 +8,7 @@ export const animatePageIn = () => {
   const right = document.getElementById("curtain-right");
   if (!left || !right) return;
 
+  isClosing = false;
   gsap.killTweensOf([left, right]);
   gsap.set(left, { x: "0%" });
   gsap.set(right, { x: "0%" });

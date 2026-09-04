@@ -82,7 +82,7 @@ export function StreamingCta({
   const content = (
     <div>
       <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
-        New Rilis
+        Rilis Terbaru
       </p>
       <h3 className="mt-3 font-title text-3xl font-bold tracking-wide sm:text-4xl">
         {featured?.title ?? "Tak Lagi Sama"}

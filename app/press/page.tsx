@@ -345,12 +345,12 @@ export default function Press() {
               <p className="mt-4 text-[#A1A1AA]">
                 Untuk pertanyaan pers, wawancara, atau kemitraan media.
               </p>
-              <a
-                href="mailto:press@kalla.id"
+              <p
+                
                 className="mt-6 inline-block text-lg font-medium text-[#DC2626] transition-colors hover:text-[#EF4444]"
               >
-                press@kalla.id
-              </a>
+                kallabandofficial11@gmail.com
+              </p>
             </div>
           </div>
         </section>

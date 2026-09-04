@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { animatePageIn } from "@/lib/animations";
 
 export default function Template({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+
   useEffect(() => {
     const id = requestAnimationFrame(() => animatePageIn());
     return () => {
@@ -14,7 +17,7 @@ export default function Template({ children }: { children: ReactNode }) {
         document.getElementById("curtain-right"),
       ]);
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <div>

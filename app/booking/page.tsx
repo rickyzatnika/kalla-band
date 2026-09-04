@@ -153,7 +153,7 @@ export default function Booking() {
                 Kalla Band
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A1A1AA]">
-                Tertarik menghadirkan KALLA ke acara Anda? Isi form di bawah dan
+                Tertarik menghadirkan Kalla Band ke acara Anda? Isi form di bawah dan
                 tim kami akan menghubungi Anda.
               </p>
             </div>
@@ -317,7 +317,7 @@ export default function Booking() {
                 </div>
                 <p className="text-sm text-[#A1A1AA]">Respon Cepat</p>
                 <p className="mt-1 font-medium text-white transition-colors group-hover:text-[#DC2626]">
-                  +62 812-2335-5339
+                  +62 858-2000-1673 (Razka)
                 </p>
               </a>
             </div>
