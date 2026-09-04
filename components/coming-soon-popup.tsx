@@ -5,28 +5,21 @@ import Image from "next/image";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const STORAGE_KEY = "kalla-coming-soon-dismissed";
 const DELAY = 3000;
 
 export function ComingSoonPopup() {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    if (localStorage.getItem(STORAGE_KEY)) return;
     const id = setTimeout(() => setOpen(true), DELAY);
     return () => clearTimeout(id);
   }, []);
 
-  const close = () => {
-    setOpen(false);
-    localStorage.setItem(STORAGE_KEY, "1");
-  };
+  const close = () => setOpen(false);
 
   return (
     <AnimatePresence>
-      {mounted && open && (
+      {open && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
