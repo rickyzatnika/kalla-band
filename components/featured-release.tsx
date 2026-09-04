@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ExternalLink } from "lucide-react";
 import { TransitionLink } from "@/components/transition-link";
+import { getTrackBySlug } from "@/lib/tracks";
 import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -14,10 +15,11 @@ export function FeaturedRelease() {
   const section = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLParagraphElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const listRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
 
   const imageWrapRef = useRef<HTMLDivElement>(null);
+
+  const track = getTrackBySlug("tak-lagi-sama")!;
 
   useGSAP(() => {
     const mm = gsap.matchMedia();
@@ -49,12 +51,6 @@ export function FeaturedRelease() {
           imageWrapRef.current,
           { clipPath: "inset(0 0% 0 0)", duration: 1.2, ease: "power4.out" },
           "-=0.4",
-        )
-        .fromTo(
-          listRef.current ? Array.from(listRef.current.children) : [],
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power2.out" },
-          "-=0.6",
         )
         .fromTo(
           ctaRef.current,
@@ -112,34 +108,8 @@ export function FeaturedRelease() {
           },
         },
       );
-
-      gsap.fromTo(
-        listRef.current ? Array.from(listRef.current.children) : [],
-        { y: 15, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.5,
-          stagger: 0.08,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: listRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      );
     });
   });
-
-  const items = [
-    "Tak Lagi Sama",
-    "Tanpa Kepastian",
-    "Berharap",
-    "Wujud Tak Sempurna",
-    "Dulu",
-    "Sepi Tanpamu",
-  ];
 
   return (
     <section
@@ -169,8 +139,8 @@ export function FeaturedRelease() {
           >
             <div className="flex w-full h-full items-center justify-center">
               <Image
-                src="/images/new/artwork.jpeg"
-                alt="album cover"
+                src={track.artwork ?? "/images/tak-lagi-sama/artwork.jpeg"}
+                alt={`${track.title} artwork`}
                 className="object-contain object-left  rounded-3xl"
                 width={600}
                 height={200}
@@ -179,43 +149,33 @@ export function FeaturedRelease() {
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6">
-              <p className="mt-1 text-sm text-[#A1A1AA]">2026</p>
+              <p className="mt-1 text-sm text-[#A1A1AA]">{track.year}</p>
             </div>
           </div>
           <div className="col-span-1">
             <div>
               <p className="font-title text-2xl font-bold tracking-wide">
-                Tak Lagi Sama
+                {track.title}
               </p>
-              <p className="mt-4 text-lg leading-relaxed text-[#A1A1AA]">
-                Bercerita tentang seseorang yang masih berusaha mempertahankan sebuah hubungan, sementara orang yang dicintainya perlahan
-                berubah dan semakin menjauh. Di tengah usaha untuk tetap bertahan,  muncul kesadaran bahwa sebuah hubungan tidak mungkin diperjuangkan seorang diri.    
-              </p>
-            
-              <p className="mt-4 text-lg leading-relaxed text-[#A1A1AA]">
-                "Lagu ini tentang fase ketika kita sadar bahwa seseorang yang dulu bergitu dekat perlahan berubah.  Kita masih ingin bertahan, tapi akhirnya harus
-                menerima bahwa mungkin kita sudah tidak lagi berjalan ke arah yang sama."
-              </p>
-            </div>
+              {track.description && (
+                <p className="mt-4 text-lg leading-relaxed text-[#A1A1AA]">
+                  {track.description}
+                </p>
+              )}
 
-            {/* <div ref={listRef} className="mt-8 ">
-              {items.map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-4 border-b border-[rgba(255,255,255,0.06)] py-2"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#DC2626]" />
-                  <span className="text-sm text-[#A1A1AA]">{item}</span>
-                </div>
-              ))}
-            </div> */}
+              {track.quote && (
+                <p className="mt-4 text-lg leading-relaxed text-[#A1A1AA]">
+                  &ldquo;{track.quote}&rdquo;
+                </p>
+              )}
+            </div>
 
             <div
               ref={ctaRef}
               className="mt-8 flex flex-col gap-4 pt-4 sm:flex-row"
             >
               <TransitionLink
-                href="/music"
+                href={`/music/${track.slug}`}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#DC2626] px-8 py-3.5 text-sm font-medium text-white transition-all duration-300 hover:bg-[#EF4444]"
               >
                 <ExternalLink className="h-4 w-4" />
