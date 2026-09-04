@@ -308,7 +308,7 @@ export default function Booking() {
                 </p>
               </a>
               <a
-                href="https://api.whatsapp.com/send?phone=+6281223355339&text=Hallo..."
+                href="https://api.whatsapp.com/send?phone=+6285820001673&text=Hallo..."
                 target="_blank"
                 className="group rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111111] p-6 transition-all duration-300 hover:border-[#DC2626]/30"
               >
