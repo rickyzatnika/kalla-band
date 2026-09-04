@@ -139,7 +139,7 @@ export function FeaturedRelease() {
           >
             <div className="flex w-full h-full items-center justify-center">
               <Image
-                src={track.artwork ?? "/images/tak-lagi-sama/artwork.jpeg"}
+                src={track.artwork ?? "/images/tak-lagi-sama/artwork.webp"}
                 alt={`${track.title} artwork`}
                 className="object-contain object-left  rounded-3xl"
                 width={600}

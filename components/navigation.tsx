@@ -100,6 +100,15 @@ export function Navigation() {
     });
   };
 
+
+
+  const sosialLinks= [
+    { href: "https://www.instagram.com/kallaband.official/", label: "Instagram" },
+    { href: "https://www.youtube.com/@kallaband_official", label: "YouTube" },
+    { href: "https://www.tiktok.com/@kallabandofficial?is_from_webapp=1&sender_device=pc", label: "TikTok" },
+  ]
+  
+
   return (
     <>
       <header className="fixed top-0 left-0  right-0 z-[100] flex items-center justify-between px-4 md:px-10 py-5">
@@ -183,22 +192,36 @@ export function Navigation() {
                   alt="KALLA"
                   width={500}
                   height={200}
-                  className="w-32 md:w-50 object-contain"
+                  className="w-14 md:w-50 hidden md:block object-contain"
                   priority
                 />
               </div>
 
               <div className="space-y-5">
                 <div>
+                  
+                    <p className="mb-1 text-xs font-mono tracking-[0.15em] text-[#DC2626] capitalize">
+                      Email
+                    </p>
+                    <p
+
+                      className="text-sm text-[#A1A1AA] transition-colors hover:text-white"
+                    >
+                      kallabandofficial11@gmail.com
+                    </p>
+                 
+                 
+                </div>
+                <div>
                   <p className="mb-1 text-xs font-mono tracking-[0.15em] text-[#DC2626] capitalize">
-                    Email
+                    Business Inquiries:
                   </p>
-                  <a
-                    href="mailto:hello@kalla.id"
+                  <p
+
                     className="text-sm text-[#A1A1AA] transition-colors hover:text-white"
                   >
-                    hello@kalla.id
-                  </a>
+                    Artist Management of KALLA +62 858-2000-1673 (Razka)
+                  </p>
                 </div>
                 <div>
                   <p className="mb-1 text-xs font-mono tracking-[0.15em] text-[#DC2626] capitalize">
@@ -213,13 +236,15 @@ export function Navigation() {
                   Social
                 </p>
                 <div className="flex gap-6">
-                  {["Instagram", "YouTube", "Spotify"].map((s) => (
+                  {sosialLinks.map((link) => (
                     <a
-                      key={s}
-                      href="#"
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-sm text-[#A1A1AA] underline underline-offset-4 transition-colors hover:text-white"
                     >
-                      {s}
+                      {link.label}
                     </a>
                   ))}
                 </div>

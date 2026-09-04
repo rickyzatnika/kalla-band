@@ -9,52 +9,11 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, Play } from "lucide-react";
 import SplitType from "split-type";
-import { tracks, getTrackBySlug } from "@/lib/tracks";
+import { tracks } from "@/lib/tracks";
 import { TransitionLink } from "@/components/transition-link";
-import {
-  SiSpotify,
-  SiApplemusic,
-  SiYoutubemusic,
-  SiDeezer,
-  SiTiktok,
-} from "react-icons/si";
-import { FaAmazon } from "react-icons/fa6";
-import type { IconType } from "react-icons";
+import { StreamingCta } from "@/components/streaming-cta";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const platforms: { name: string; href: string; Icon: IconType }[] = [
-  {
-    name: "Spotify",
-    href: "https://open.spotify.com/album/28o3YEPJdUh7csf240aUJC",
-    Icon: SiSpotify,
-  },
-  {
-    name: "Apple Music",
-    href: "https://music.apple.com/us/song/tak-lagi-sama/6807558048",
-    Icon: SiApplemusic,
-  },
-  {
-    name: "YouTube Music",
-    href: "https://music.youtube.com/watch?v=t_mY7qi59C0",
-    Icon: SiYoutubemusic,
-  },
-  {
-    name: "Amazon Music",
-    href: "https://music.amazon.com/tracks/B0HHG3XWV5",
-    Icon: FaAmazon,
-  },
-  {
-    name: "Deezer",
-    href: "https://link.deezer.com/s/34iTxD9NlTmghSzbkdHMa",
-    Icon: SiDeezer,
-  },
-  {
-    name: "TikTok",
-    href: "https://vt.tiktok.com/ZS9BEDp6yAoT4-8KkGW/",
-    Icon: SiTiktok,
-  },
-];
 
 export default function Music() {
   const main = useRef<HTMLDivElement>(null);
@@ -64,8 +23,6 @@ export default function Music() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const trackListRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-
-  const featured = getTrackBySlug("tak-lagi-sama");
 
   useEffect(() => { document.title = "Musik — KALLA"; }, []);
 
@@ -178,9 +135,7 @@ export default function Music() {
               <h2 className="font-title text-4xl font-bold tracking-wide">
                 Trek Teratas
               </h2>
-              <p className="text-sm text-[#A1A1AA]">
-                Tak Lagi Sama telah rilis &mdash; sisanya menyusul.
-              </p>
+              
             </div>
 
             <div
@@ -249,51 +204,8 @@ export default function Music() {
               })}
             </div>
 
-            <div
-              ref={ctaRef}
-              className="mt-16 overflow-hidden rounded-3xl border border-[rgba(255,255,255,0.08)] bg-[#111111]"
-            >
-              <div className="grid gap-10 p-8 sm:p-12 lg:grid-cols-[38%_1fr] lg:items-center lg:gap-14">
-                <div className="relative mx-auto w-full max-w-[240px]">
-                  <div className="absolute -left-3 -top-3 h-full w-full rounded-2xl border border-[#DC2626]/40" />
-                  <div className="relative overflow-hidden rounded-2xl bg-[#090909]">
-                    <Image
-                      src={featured?.artwork ?? "/images/cover-album.jpeg"}
-                      alt={`${featured?.title ?? "KALLA"} artwork`}
-                      width={480}
-                      height={480}
-                      className="aspect-square w-full object-cover"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <p className="text-xs font-medium tracking-[0.3em] text-[#DC2626] capitalize">
-                    New Rilis
-                  </p>
-                  <h3 className="mt-3 font-title text-3xl font-bold tracking-wide sm:text-4xl">
-                    Tak Lagi Sama
-                  </h3>
-                  <p className="mt-4 text-[#A1A1AA]">
-                    Dengarkan selengkapnya disini :
-                  </p>
-
-                  <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                    {platforms.map(({ name, href, Icon }) => (
-                      <a
-                        key={name}
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex items-center gap-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#090909] px-4 py-3 text-sm font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-[#DC2626]/40"
-                      >
-                        <Icon className="h-4 w-4 shrink-0 text-[#DC2626] transition-colors duration-300 group-hover:text-white" />
-                        <span className="truncate">{name}</span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
+            <div ref={ctaRef} className="mt-16">
+              <StreamingCta />
             </div>
           </div>
         </section>

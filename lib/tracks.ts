@@ -5,6 +5,7 @@ export type Track = {
   released: boolean;
   year?: string;
   artwork?: string;
+  heroArtwork?: string;
   gallery?: string[];
   video?: string;
   description?: string;
@@ -18,11 +19,12 @@ export const tracks: Track[] = [
     duration: "3:45",
     released: true,
     year: "2026",
-    artwork: "/images/tak-lagi-sama/artwork.jpeg",
+    artwork: "/images/tak-lagi-sama/artwork.webp",
+    heroArtwork: "/images/tak-lagi-sama/hero.webp",
     gallery: [
-      "/images/tak-lagi-sama/1.jpeg",
-      "/images/tak-lagi-sama/2.jpeg",
-      "/images/tak-lagi-sama/3.jpeg",
+      "/images/tak-lagi-sama/1.webp",
+      "/images/tak-lagi-sama/2.webp",
+      "/images/tak-lagi-sama/3.webp",
     ],
     video: "/video/tak-lagi-sama/tak-lagi-sama.MP4",
     description:

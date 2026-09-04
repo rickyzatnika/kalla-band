@@ -152,13 +152,13 @@ export default function About() {
                 ref={heroTitle}
                 className="mt-4 font-title text-6xl font-bold tracking-wide sm:text-7xl"
               >
-                Cerita KALLA
+                Cerita Kalla
               </h1>
               <p
                 ref={heroDesc}
                 className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A1A1AA]"
               >
-                KALLA adalah band emotional alternative pop asal Bandung yang
+                Kalla adalah band emotional alternative pop asal Bandung yang
                 lahir dari keresahan, kenangan, dan fase-fase kehidupan yang
                 tidak selalu bisa diungkapkan lewat kata-kata.
               </p>

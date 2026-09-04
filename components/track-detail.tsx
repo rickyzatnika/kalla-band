@@ -10,7 +10,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Clock,
   ArrowLeft,
-  ExternalLink,
   Music2,
   Camera,
   Play,
@@ -19,6 +18,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import SplitType from "split-type";
 import { TransitionLink } from "@/components/transition-link";
+import { StreamingCta } from "@/components/streaming-cta";
 import type { Track } from "@/lib/tracks";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -206,7 +206,7 @@ export function TrackDetail({ track }: { track: Track }) {
         >
           <div ref={bgRef} className="absolute inset-0">
             <Image
-              src={track.artwork ?? "/images/cover-album.jpeg"}
+              src={track.heroArtwork ?? track.artwork ?? "/images/cover-album.jpeg"}
               alt=""
               fill
               className="object-cover"
@@ -252,6 +252,36 @@ export function TrackDetail({ track }: { track: Track }) {
         </section>
 
         <div className="relative z-10 mx-auto max-w-6xl px-6">
+
+          {track.video && (
+            <section className="border-t border-[rgba(255,255,255,0.06)] py-32">
+              {sectionHead("Dengarkan", "Teaser")}
+              <div className="mx-auto max-w-[280px] sm:max-w-[320px]">
+                <div
+                  ref={videoRef}
+                  className="overflow-hidden rounded-3xl border border-[rgba(255,255,255,0.08)] bg-[#111111]"
+                >
+                  <video
+                    controls
+                    playsInline
+                    preload="metadata"
+                    poster={track.artwork}
+                    className="aspect-[9/16] w-full object-cover"
+                  >
+                    <source src={track.video} type="video/mp4" />
+                    Browser kamu tidak mendukung video.
+                  </video>
+                </div>
+                <p className="mt-4 flex items-center justify-center gap-2 text-center text-xs text-[#A1A1AA]">
+                  <Music2 className="h-3.5 w-3.5 text-[#DC2626]" />
+                  {track.title} &mdash;
+                </p>
+              </div>
+            </section>
+          )}
+
+
+
           <section className="grid gap-14 py-32 lg:grid-cols-12 lg:items-center lg:gap-20">
             <div className="relative lg:col-span-5">
               <div className="absolute -left-4 -top-4 h-full w-full rounded-3xl border border-[#DC2626]/30 lg:-left-6 lg:-top-6" />
@@ -297,47 +327,11 @@ export function TrackDetail({ track }: { track: Track }) {
                 </blockquote>
               )}
 
-              <div>
-                <a
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#DC2626] px-8 py-3.5 text-sm font-medium text-white transition-all duration-300 hover:bg-[#EF4444]"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  Dengarkan di Spotify
-                </a>
-              </div>
+              <StreamingCta track={track} showArtwork={false} />
             </div>
           </section>
 
-          {track.video && (
-            <section className="border-t border-[rgba(255,255,255,0.06)] py-32">
-              {sectionHead("Dengarkan", "Teaser")}
-              <div className="mx-auto max-w-[280px] sm:max-w-[320px]">
-                <div
-                  ref={videoRef}
-                  className="overflow-hidden rounded-3xl border border-[rgba(255,255,255,0.08)] bg-[#111111]"
-                >
-                  <video
-                    controls
-                    playsInline
-                    preload="metadata"
-                    poster={track.artwork}
-                    className="aspect-[9/16] w-full object-cover"
-                  >
-                    <source src={track.video} type="video/mp4" />
-                    Browser kamu tidak mendukung video.
-                  </video>
-                </div>
-                <p className="mt-4 flex items-center justify-center gap-2 text-center text-xs text-[#A1A1AA]">
-                  <Music2 className="h-3.5 w-3.5 text-[#DC2626]" />
-                  {track.title} &mdash; 
-                </p>
-              </div>
-            </section>
-          )}
-
+         
           {track.gallery && track.gallery.length > 0 && (
             <section className="border-t border-[rgba(255,255,255,0.06)] py-32">
               {sectionHead("Galeri", "Press Release")}
