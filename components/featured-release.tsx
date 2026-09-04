@@ -169,7 +169,7 @@ export function FeaturedRelease() {
           >
             <div className="flex w-full h-full items-center justify-center">
               <Image
-                src="/images/cover-album.jpeg"
+                src="/images/new/artwork.jpeg"
                 alt="album cover"
                 className="object-contain object-left  rounded-3xl"
                 width={600}
@@ -185,17 +185,20 @@ export function FeaturedRelease() {
           <div className="col-span-1">
             <div>
               <p className="font-title text-2xl font-bold tracking-wide">
-                Tentang Mimpi yang Belum Usai
+                Tak Lagi Sama
               </p>
               <p className="mt-4 text-lg leading-relaxed text-[#A1A1AA]">
-                Album ini berisi satu single original KALLA serta beberapa lagu
-                lama dari proyek band sebelumnya yang diaransemen ulang.
-                Perpaduan ini menjadi simbol bahwa masa lalu tidak benar-benar
-                selesai, melainkan bisa hidup kembali dalam bentuk yang baru.
+                Bercerita tentang seseorang yang masih berusaha mempertahankan sebuah hubungan, sementara orang yang dicintainya perlahan
+                berubah dan semakin menjauh. Di tengah usaha untuk tetap bertahan,  muncul kesadaran bahwa sebuah hubungan tidak mungkin diperjuangkan seorang diri.    
+              </p>
+            
+              <p className="mt-4 text-lg leading-relaxed text-[#A1A1AA]">
+                "Lagu ini tentang fase ketika kita sadar bahwa seseorang yang dulu bergitu dekat perlahan berubah.  Kita masih ingin bertahan, tapi akhirnya harus
+                menerima bahwa mungkin kita sudah tidak lagi berjalan ke arah yang sama."
               </p>
             </div>
 
-            <div ref={listRef} className="mt-8 ">
+            {/* <div ref={listRef} className="mt-8 ">
               {items.map((item) => (
                 <div
                   key={item}
@@ -205,7 +208,7 @@ export function FeaturedRelease() {
                   <span className="text-sm text-[#A1A1AA]">{item}</span>
                 </div>
               ))}
-            </div>
+            </div> */}
 
             <div
               ref={ctaRef}
@@ -216,7 +219,7 @@ export function FeaturedRelease() {
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#DC2626] px-8 py-3.5 text-sm font-medium text-white transition-all duration-300 hover:bg-[#EF4444]"
               >
                 <ExternalLink className="h-4 w-4" />
-                Lihat Diskografi
+                Selengkapnya
               </TransitionLink>
             </div>
           </div>
